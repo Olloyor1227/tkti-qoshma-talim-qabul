@@ -1,0 +1,11 @@
+{
+  "name": "qoshma-talim-sayti",
+  "version": "2.1.0",
+  "description": "Tkti qoshma talim ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bekzodjonganiyev",
+  "license": "ISC"
+}
