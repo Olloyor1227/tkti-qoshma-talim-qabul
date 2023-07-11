@@ -8,11 +8,14 @@ import { DropDownIcon } from "../../assets/icons";
 import logo from "../../assets/images/footer-logo.png";
 
 import { language, headerItems } from "../../config";
+import { useAppContext } from "../../context/app.context";
 
 export const Header = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { authState } = useAppContext()
+
   const [isOpen, setOpen] = useState({ hamburger: false, lang: false });
 
   const toggleHamburger = () => {
@@ -53,7 +56,7 @@ export const Header = () => {
             <img src={logo} alt="" width={"150"} height={"20"} className="" />
           </Link>
           
-          {headerItems(true).map((item) => (
+          {headerItems(authState).map((item) => (
             <Link
               to={item.link}
               className="max-xl:pl-14 max-xl:text-[#F06D06]  border-red-900 max-xl:mb-8"
@@ -103,7 +106,7 @@ export const Header = () => {
           </div>
 
           {
-            true ? <Link to={`${i18next.language}/cabinet`} className="rounded-full w-6 h-6 bg-white text-black flex justify-center items-center p-2">a</Link> : null
+            authState ? <Link to={`${i18next.language}/cabinet`} className="rounded-full w-6 h-6 bg-white text-black flex justify-center items-center p-2">a</Link> : null
           }
 
           <div className="xl:hidden block">

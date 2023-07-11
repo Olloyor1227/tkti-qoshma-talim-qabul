@@ -18,7 +18,7 @@ export class ClientApiService {
   }
 }
 
-export class ApiClienrServices {
+export class ApiClietServices {
   get(url) {
     const headers = {
       "Content-type": "application/json",
@@ -27,7 +27,7 @@ export class ApiClienrServices {
     return fetchApi(url, { headers: headers });
   }
 
-  add(url, data, type) {
+  post(url, data, type) {
     const headers = {
       "Content-type": "application/json",
       Token: localStorage.getItem("token"),
