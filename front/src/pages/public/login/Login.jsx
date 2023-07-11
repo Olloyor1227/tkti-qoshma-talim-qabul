@@ -16,7 +16,7 @@ export function Login() {
   }
   
   return (
-    <div className="container mx-auto w-[90%] py-2">
+    <div className="container mx-auto w-[90%] py-10">
       <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
         <div>
           <div className="mb-2 block">

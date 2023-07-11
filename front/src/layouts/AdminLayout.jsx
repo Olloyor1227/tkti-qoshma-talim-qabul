@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import { Navbar } from '../components'
 
 export const AdminLayout = () => {
@@ -6,7 +7,7 @@ export const AdminLayout = () => {
     <div className='flex'>
       <Navbar />
       <main className='flex-1'>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid sit dolores dignissimos. Tempore sequi sunt pariatur fugiat. Sed cumque nemo minus atque, maiores, neque at ipsa debitis delectus eum aut.
+        <Outlet />
       </main>
     </div>
   )
