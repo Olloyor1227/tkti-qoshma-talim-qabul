@@ -7,7 +7,7 @@ import { ApiClietServices } from "../../helpers"
 const { post, get } = new ApiClietServices()
 
 export const PrivateRoute = ({children, key}) => {
-    const { authState, setAuthState } = useAppContext()
+    const { setAuthState } = useAppContext()
     const user = JSON.parse(localStorage.getItem("user")) 
 
     useEffect(() => {
