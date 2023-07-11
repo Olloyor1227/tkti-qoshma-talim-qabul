@@ -1,0 +1,25 @@
+{
+    "Header": {
+      "application": "Ariza to'ldirish",
+      "news": "Yangiliklar",
+      "cabinet": "Shaxsiy kabinet"
+    },
+    "Footer": {
+      "info": "Guvohnoma: №069232. Muassis: “Yoshlarni qo‘llab-quvvatlash” MCHJ. Saytda elon qilinayotgan mualliflik maqolalarida keltirilgan fikrlar muallifga tegishli va ular Yqqedu.uz tahririyati nuqtai nazarini ifoda etmasligi mumkin. Maqola va materiallarda qo‘yilgan mazkur belgi ularning tijorat va reklama huquqlari asosida eʼlon qilinganligini bildiradi"
+    },
+    "Hero": {
+      "motto": "Haqiqiy jurnalist bedor bo`lishi kerak… haqiqiy jurnalist vijdonli bo`lishi lozim…",
+      "description": "Bugungi kunda ijtimoiy tarmoq foydalanuvchisi borki, o‘zini jurnalistman, deb hisoblaydi. Lekin axborot makonida turli xildagi feyk va ishonarli ma'lumotlarni saralab, ishonchli ma'lumot yetkazib beradigan insonni jurnalist, deb bilaman"
+    },
+    "NewsCard": {
+      "title": "{{news_card_title}}"
+    },
+    "RecommendContent": {
+      "title": "{{recommend_content_title}}",
+      "button": "Ko'proq yangiliklar"
+    },
+    "MoreDetails": {
+      "title": "{{more_details_title}}",
+      "body": "{{more_details_body}}"
+    }
+  }
