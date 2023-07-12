@@ -16,36 +16,20 @@ class ApplicationController {
           .json({ status: 403, message: String(error["details"][0].message) });
         return;
       }
-      const medias = req.files;
-      if (medias?.length === 0) {
-        const obj = {
-          name: value.name,
-          tel: value.tel,
-          email: value.email,
-          body: value.body,
-          type: value.type,
-          status: "pending",
-        };
-        const Application = new Application_data(obj);
-        await Application.save();
-      } else {
-        for (let i of medias) {
-          const obj = {
-            name: value.name,
-            tel: value.tel,
-            email: value.email,
-            body: value.body,
-            type: value.type,
-            status: "pending",
-          };
-          obj.file = `uploads/${i.filename}`;
-          const Application = new Application_data(obj);
-          await Application.save();
-        }
-      }
+      console.log(value, "value")
+      value.photo = `uploads/${req.file.filename}`;
+
+      const application = new Application_data(value);
+      await application.save();
+
       res
         .status(200)
-        .json({ status: 200, success: true, message: `Media qo'shildi` });
+        .json({
+          status: 200,
+          success: true,
+          message: `Ariza muvaffaqiyatli saqlandi, shaxsiy kabinetingizga o'tib to'lov qiling va uni faollashtiring`,
+          data: application
+        });
     } catch (e) {
       console.log(e);
       res

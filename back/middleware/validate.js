@@ -55,12 +55,24 @@ class Validate{
     })
 
     postApplicaton = joi.object().keys({
-        name: joi.string().min(5).required(),
-        tel: joi.string().min(5).required(),
-        email: joi.string().min(5).required(),
-        type: joi.string().min(5).required(),
-        body: joi.string().min(100).required(),
-        status: joi.string().min(3)
+        // Personal validations
+        name: joi.string().min(3).required(),
+        surname: joi.string().min(5).required(),
+        fathername: joi.string().min(5).required(),
+        dob: joi.string().min(5).required(),
+        gender: joi.string().min(5).required(),
+        passport_number: joi.string().length(9).required(),
+        passport_dob: joi.string().min(5).required(),
+        jshshr: joi.string().length(14).required(),
+        address: joi.string().min(30).required(),
+        tel: joi.string().length(13).required(),
+        // Educational validations
+        complated_edu: joi.string().min(10).required(),
+        state: joi.string().min(3).required(),
+        edu_type: joi.string().min(3),
+        edu_lang: joi.string().min(3),
+        edu_degree: joi.string().min(3),
+        faculty: joi.string().min(3)
     })
 }
 

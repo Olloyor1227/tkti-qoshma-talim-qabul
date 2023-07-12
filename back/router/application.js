@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../config/multer").array("file", 20);
-const update = require("../config/multer").single("file");
+// const upload = require("../config/multer").array("file", 20);
+const upload = require("../config/multer").single("file");
 const middleware = require("../middleware");
 const ApplicationController = require("../constroller/application");
 
@@ -9,14 +9,13 @@ router.post(
   "/add",
   (req, res, next) => {
     upload(req, res, function (err) {
-      console.log(req.files);
-      if (err || !req.files) {
+      if (err || !req.file) {
         res
           .status(404)
           .json({
             status: 404,
             success: false,
-            message: `Media qo'shish uchun 'file' keyidan foydalanib 20tagacha rasm yuboring`,
+            message: `Yangilik qo'shish uchun 'photo' keyidan foydalanib 1ta rasm yuboring ${err}`,
           });
         return;
       }
@@ -49,7 +48,7 @@ router.put(
   middleware.checkParamsId,
   middleware.checkToken,
   (req, res, next) => {
-    update(req, res, function (err) {
+    upload(req, res, function (err) {
       if (err) {
         res
           .status(404)
