@@ -1,17 +1,17 @@
 export const sidebarItems = [
     {
-        name: "Ro'yxatdan o'tganlar",
-        link: "/registered",
+        name: "Arizalar",
+        link: "applications",
         icon: ""
     },
     {
-        name: "To'lov qilganalar",
-        link: "/paid",
+        name: "Yangiliklar",
+        link: "news",
         icon: ""
     },
     {
-        name: "To'lov qilmaganlar",
-        link: "/not-paid",
+        name: "Banner",
+        link: "benner",
         icon: ""
     }
 ]

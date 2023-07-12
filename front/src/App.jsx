@@ -13,28 +13,14 @@ function App() {
         <Route path=":lang/login" element={<Login />} />
         <Route path=":lang/news" element={<News />} />
         <Route path=":lang/news/details/:id" element={<NewsDetails />} />
-        <Route
-          path=":lang/cabinet"
-          element={
-            <PrivateRoute key="user">
-              <UserCabinet />
-            </PrivateRoute>
-          }
-        />
+        <Route path=":lang/cabinet" element={<PrivateRoute key="user"><UserCabinet /></PrivateRoute>} />
       </Route>
 
-      <Route
-        path="users-list"
-        element={
-          <PrivateRoute key="admin">
-            <AdminLayout />
-          </PrivateRoute>
-        }
-      >
-        <Route
-          index
-          element={<Applicants />}
-        />
+      <Route path="users-list" element={<PrivateRoute key="admin"><AdminLayout /></PrivateRoute>}>
+        <Route index element={<Applicants />} />
+        <Route path="applications" element={<Applicants />} />
+        <Route path="news" element={<Applicants />} />
+        <Route path="benner" element={<Applicants />} />
       </Route>
     </Routes>
   );
