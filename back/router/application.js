@@ -24,6 +24,7 @@ router.post(
   },
   ApplicationController.Add
 );
+router.post("/login", ApplicationController.Login);
 router.get(
   "/",
   middleware.checkContentType,

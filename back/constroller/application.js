@@ -3,6 +3,12 @@ const validate = require("../middleware/validate");
 const removeMedia = require("../config/fs");
 const fs = require("fs");
 const path = require("path");
+const jwt = require("jsonwebtoken");
+const setToken = (payload) =>
+  jwt.sign(payload, "MUSAFFO_SKY", {
+    expiresIn: "48h", // token 2kundan keyin eskiradi, token eskirgandan keyin admin pashti hech nima qilomeydi yangilab login qivomagancha
+  });
+
 
 class ApplicationController {
   async Add(req, res) {
@@ -16,7 +22,18 @@ class ApplicationController {
           .json({ status: 403, message: String(error["details"][0].message) });
         return;
       }
-      console.log(value, "value")
+
+      // User phone va passport_number bo'yicha qidirilyapti
+      const user = await Application_data.findOne({
+        phone: value.phone,
+        passport_number: value.passport_number,
+      }).select(["tel", "passport_number", "name"]);
+
+      if (user) {
+        res.status().json({status: 1, message: `${user?.passport_number} passport seriyali foydalanuvchi tizimda mavjud`})
+        return;
+      }
+
       value.photo = `uploads/${req.file.filename}`;
 
       const application = new Application_data(value);
@@ -35,6 +52,38 @@ class ApplicationController {
       res
         .status(500)
         .json({ status: 500, message: "invalid request", success: false });
+    }
+  }
+
+  async Login (req, res) {
+    try {
+      const { error, value } = validate.login.validate({...req.body});
+
+      // Validatsiyadan o'tmadi
+      if (error) {
+        res
+          .status(403)
+          .json({ status: 403, message: String(error["details"][0].message) });
+        return;
+      }
+
+      // User phone va passport_number bo'yicha qidirilyapti
+      const user = await Application_data.findOne({
+        phone: value.phone,
+        passport_number: value.passport_number,
+      }).select(["tel", "passport_number", "name", "_id"]);
+
+      if (!user) {
+        res.status(404).json({ success: false, data: "Foydalanuvchi topilmadi" });
+      } else {
+        res
+          .status(200)
+          .json({ success: true, text:"Xush kelibsiz", data: user, token: setToken({ id: user._id }) });
+      }
+    } catch (e) {
+        res
+          .status(500)
+          .json({ status: 500, message: "invalid request", success: false });
     }
   }
   async Edit(req, res) {

@@ -50,8 +50,8 @@ class Validate{
     })
 
     login = joi.object().keys({
-        phone: joi.string().min(3).required(),
-        password: joi.string().min(3).required(),
+        phone: joi.string().length(13).required(),
+        passport_number: joi.string().length(9).required(),
     })
 
     postApplicaton = joi.object().keys({

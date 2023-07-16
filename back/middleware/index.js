@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const users = require("../modules/user");
+const users = require("../modules/application");
 
 class middleware {
   async checkToken(req, res, next) {
