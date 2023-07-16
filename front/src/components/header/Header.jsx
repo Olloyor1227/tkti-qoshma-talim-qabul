@@ -31,6 +31,8 @@ export const Header = () => {
     i18next.changeLanguage(code);
   };
 
+  const userNameFirstLatter = JSON.parse(localStorage.getItem("user"))?.name?.slice(0,1)
+
   return (
     <header
       className={`py-4 sticky top-0 w-full z-10 text-white transition-opacity bg-[#26597E]`}
@@ -58,6 +60,7 @@ export const Header = () => {
           
           {headerItems(authState).map((item) => (
             <Link
+              key={item.name}
               to={item.link}
               className="max-xl:pl-14 max-xl:text-[#F06D06]  border-red-900 max-xl:mb-8"
               onClick={() => toggleHamburger()}
@@ -106,7 +109,7 @@ export const Header = () => {
           </div>
 
           {
-            authState ? <Link to={`${i18next.language}/cabinet`} className="rounded-full w-6 h-6 bg-white text-black flex justify-center items-center p-2">a</Link> : null
+            authState ? <Link to={`${i18next.language}/cabinet`} className="rounded-full w-6 h-6 bg-white text-black flex justify-center items-center p-2">{userNameFirstLatter}</Link> : null
           }
 
           <div className="xl:hidden block">
