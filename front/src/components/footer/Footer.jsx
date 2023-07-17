@@ -26,7 +26,7 @@ export const Footer = () => {
               <Link to="/" className="my-4 block  ">
                 <div className="flex items-center ">
                   <img src={logo} alt="Main logo" width={"80"} height={"20"} />
-                  <div
+                  {/* <div
                     className={`text-white lg:text-2xl xl:text-xl md:text-lg  md:w-[70%] font-bold`}
                   >
                     <div className="text-[14px] mx-3">
@@ -34,7 +34,7 @@ export const Footer = () => {
                       <div>{t("TktiName.1.name")}</div>
                       <div>{t("TktiName.2.name")}</div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </Link>
               <div className="flex gap-4    items-end justify-between ">
