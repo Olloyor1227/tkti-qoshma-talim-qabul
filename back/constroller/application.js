@@ -9,7 +9,6 @@ const setToken = (payload) =>
     expiresIn: "48h", // token 2kundan keyin eskiradi, token eskirgandan keyin admin pashti hech nima qilomeydi yangilab login qivomagancha
   });
 
-
 class ApplicationController {
   async Add(req, res) {
     try {
@@ -30,7 +29,12 @@ class ApplicationController {
       }).select(["tel", "passport_number", "name"]);
 
       if (user) {
-        res.status().json({status: 1, message: `${user?.passport_number} passport seriyali foydalanuvchi tizimda mavjud`})
+        console.log(user);
+        res.status(400).json({
+          success: false,
+          status: 400,
+          message: `${user?.passport_number} passport seriyali foydalanuvchi tizimda mavjud`,
+        });
         return;
       }
 
@@ -39,14 +43,12 @@ class ApplicationController {
       const application = new Application_data(value);
       await application.save();
 
-      res
-        .status(200)
-        .json({
-          status: 200,
-          success: true,
-          message: `Ariza muvaffaqiyatli saqlandi, shaxsiy kabinetingizga o'tib to'lov qiling va uni faollashtiring`,
-          data: application
-        });
+      res.status(200).json({
+        status: 200,
+        success: true,
+        message: `Ariza muvaffaqiyatli saqlandi, shaxsiy kabinetingizga o'tib to'lov qiling va uni faollashtiring`,
+        data: application,
+      });
     } catch (e) {
       console.log(e);
       res
@@ -55,9 +57,9 @@ class ApplicationController {
     }
   }
 
-  async Login (req, res) {
+  async Login(req, res) {
     try {
-      const { error, value } = validate.login.validate({...req.body});
+      const { error, value } = validate.login.validate({ ...req.body });
 
       // Validatsiyadan o'tmadi
       if (error) {
@@ -74,16 +76,21 @@ class ApplicationController {
       }).select(["tel", "passport_number", "name", "_id"]);
 
       if (!user) {
-        res.status(404).json({ success: false, data: "Foydalanuvchi topilmadi" });
-      } else {
         res
-          .status(200)
-          .json({ success: true, text:"Xush kelibsiz", data: user, token: setToken({ id: user._id }) });
+          .status(404)
+          .json({ success: false, data: "Foydalanuvchi topilmadi" });
+      } else {
+        res.status(200).json({
+          success: true,
+          text: "Xush kelibsiz",
+          data: user,
+          token: setToken({ id: user._id }),
+        });
       }
     } catch (e) {
-        res
-          .status(500)
-          .json({ status: 500, message: "invalid request", success: false });
+      res
+        .status(500)
+        .json({ status: 500, message: "invalid request", success: false });
     }
   }
   async Edit(req, res) {
@@ -128,6 +135,55 @@ class ApplicationController {
       });
     } catch (e) {
       console.log(e);
+      res
+        .status(500)
+        .json({ status: 500, message: "invalid request", success: false });
+    }
+  }
+
+  async Pay(req, res) {
+    try {
+      const { error, value } = validate.postApplicaton.validate({
+        ...req.body,
+      });
+
+      if (error) {
+        if (req.file) {
+          removeMedia(req.file.filename);
+        }
+        res
+          .status(403)
+          .json({ status: 403, message: String(error["details"][0].message) });
+        return;
+      }
+
+      if (req.file) {
+        value.paid_file = `uploads/${req.file.filename}`;
+      }
+      
+      const updated = await Application_data.findByIdAndUpdate(
+        req.params.id,
+        { ...value },
+        { new: true }
+      );
+
+      if (!updated) {
+        res.status(404).json({
+          status: 404,
+          message: "berilgan id bo`yicha data topilmadi",
+          success: false,
+        });
+        return;
+      }
+      
+      res.status(200).json({
+        status: 200,
+        success: true,
+        message: `Muvaffaqiyatli yakunlandi. Arizangiz faol`,
+        data: updated,
+      });
+
+    } catch (e) {
       res
         .status(500)
         .json({ status: 500, message: "invalid request", success: false });

@@ -15,7 +15,7 @@ router.post(
           .json({
             status: 404,
             success: false,
-            message: `Yangilik qo'shish uchun 'photo' keyidan foydalanib 1ta rasm yuboring ${err}`,
+            message: `Ariza qo'shish uchun 'photo' keyidan foydalanib 1ta rasm yuboring ${err}`,
           });
         return;
       }
@@ -64,6 +64,27 @@ router.put(
     });
   },
   ApplicationController.Edit
+);
+router.patch(
+  "/:id",
+  middleware.checkParamsId,
+  // middleware.checkToken,
+  (req, res, next) => {
+    upload(req, res, function (err) {
+      if (err) {
+        res
+          .status(404)
+          .json({
+            status: 404,
+            success: false,
+            message: `Rasm qo'shish uchun 'file' keyidan foydalanib 1ta rasm yuboring`,
+          });
+        return;
+      }
+      next();
+    });
+  },
+  ApplicationController.Pay
 );
 router.delete(
   "/:id",

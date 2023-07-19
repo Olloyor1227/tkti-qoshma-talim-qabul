@@ -27,6 +27,12 @@ const ApplicationSchema = mongoose.Schema(
     edu_degree: String,
     faculty: String,
     // Educational infos end
+
+    // Application paid check
+    paid_file: {
+      type: String,
+      default: null
+    }
   },
   {
     timestamps: true,
