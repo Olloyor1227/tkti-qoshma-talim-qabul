@@ -17,10 +17,43 @@ export function Application() {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [data, setData] = useState({ loading: false, msg: "" });
+  // const [ states, setStates ] = useState([])
 
-  const imageMimeType = /image\/(png|jpg|jpeg)/i;
+  const languages = ["Ingliz", "Rus"];
+  const types = ["Kunduzgi", "Kechki", "Sirtqi"];
+  const degrees = ["Bakalavriyat", "Magistratutra"]
+  const counteries = ["Latviya", "Turkiya", "Belorusiya", "Ozarbayjon"];
+  const derctions = [
+    `
+    Atrof muhit muhofazasi (tarmoqlar va sohalar bo'yicha)
+    Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)
+    Yog'ochga ishlov berish texnologiyasi va yog'ochshunoslik
+    Kimyoviy texnologiya jarayonlari va apparatlari (ishlab chiqarish turi bo'yicha)
+    Marketing (tarmoqlar va sohalar)
+    Menejment (tarmoqlar va sohalar)
+    Kimyoviy va neft-gazkimyoviy texnologiyalar
+    `
+    ,
+    `
+    Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish (tarmoqlar bo'yicha)
+    Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)
+    Biznesni boshqarish (Master of Business Administration-MBA)
+    Menejment (kimyo va oziq-ovqat sanoati)
+    Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)
+    Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish va boshqarish (tarmoqlar bo'yicha) 
+    Texnologik mashinalar va jihozlar (tarmoqlar bo'yicha)
+    `,
+    `
+    Kimyoviy texnologiya (ishlab chiqarish turlari bo'yicha) 
+    Oziq-ovqat texnologiyasi (don mahsulotlari)
+    Texnologik jarayonlarni boshqarishning axborot – kommunikasiya tizimlari
+    Iqtisodiyot (tarmoqlar va sohalar bo'yicha)
+    Oziq-ovqat texnologiyasi (mahsulot turlari bo'yicha)`
+  ]
 
   const changeHandler = (e) => {
+    const imageMimeType = /image\/(png|jpg|jpeg)/i;
+
     const file = e.target.files[0];
     if (!file.type.match(imageMimeType)) {
       alert("Image mime type is not valid");
@@ -342,8 +375,10 @@ export function Application() {
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <DropZoneIcon />
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Yuklash uchun bosing</span> yoki
-                      sudrab olib keling
+                      <span className="font-semibold">
+                        Yuklash uchun bosing
+                      </span>{" "}
+                      yoki sudrab olib keling
                     </p>
                   </div>
                   <input
