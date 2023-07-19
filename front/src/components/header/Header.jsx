@@ -28,6 +28,7 @@ export const Header = () => {
     if (pathname.split("/")[1] === "ru") pathnameLang = "ru";
     if (pathname.split("/")[1] === "en") pathnameLang = "en";
     navigate(pathname.replace(pathnameLang, code));
+    location.reload()
     i18next.changeLanguage(code);
   };
 
@@ -37,10 +38,10 @@ export const Header = () => {
     <header
       className={`py-4 sticky top-0 w-full z-10 text-white transition-opacity bg-[#26597E]`}
     >
-      <div className="flex items-center justify-between container mx-auto w-[90%]">
+      <div className="flex items-center justify-between container mx-auto w-[90%] h-16">
         <div className="w-1/6">
           <Link to="/">
-            <img src={logo} alt="" width={"80"} height={"20"} className="" />
+            <img src={logo} alt="" width={"80"} height={"15"} className="" />
           </Link>
         </div>
         <div

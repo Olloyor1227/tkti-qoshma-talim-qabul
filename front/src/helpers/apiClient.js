@@ -19,6 +19,16 @@ export class ClientApiService {
 }
 
 export class ApiClietServices {
+  getter = async (url, state, setState) => {
+    setState({ ...state, loading: true });
+    const res = await (
+      await fetch(`https://backend.tkti.uz/${url}`, {
+        headers: { "Content-type": "application/json" },
+      })
+    ).json();
+    if (res?.success) setState({ loading: false, data: res?.data, err: "" });
+    else setState({ loading: false, data: [], err: "Server bilan xatolik" });
+  };
   get(url) {
     const headers = {
       "Content-type": "application/json",
@@ -61,6 +71,23 @@ export class ApiClietServices {
     });
   }
 
+  patch(url, data, type) {
+    const headers = {
+      "Content-type": "application/json",
+      Token: localStorage.getItem("token"),
+    };
+    const headersSecond = {
+      Token: localStorage.getItem("token"),
+    };
+    const method = "PATCH";
+
+    return fetchApi(url, {
+      method: method,
+      headers: type ? headersSecond : headers,
+      body: data,
+    });
+  }
+
   delete(url) {
     const headers = {
       "Content-type": "application/json",
@@ -72,4 +99,4 @@ export class ApiClietServices {
   }
 }
 
-export default new ClientApiService();
+export default new ApiClietServices();

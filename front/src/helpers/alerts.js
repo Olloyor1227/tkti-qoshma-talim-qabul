@@ -1,3 +1,15 @@
+export const alertFunc = (code) => {
+    switch (code) {
+        case 400:
+            return "Oka yaxshi ish qilmadiz"
+        case 401:
+            return "Oka yaxshi ish qilmadiz"
+        default:
+            return "Nimadir xato ketti"
+    }
+
+}
+
 export const booked = {
     code: 201,
     msg: "Muvaffaqqiyatli band qilindi!",

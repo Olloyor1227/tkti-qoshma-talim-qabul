@@ -1,28 +1,38 @@
-import { Card } from "flowbite-react";
-import i18next from "i18next";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Card } from "flowbite-react";
+import i18next from "i18next"
+
+import { ApiClietServices } from "../../../helpers";
+const { getter } = new ApiClietServices();
 
 export const News = () => {
+  const [news, seNews] = useState({ loading: true, data: [], err: null });
+
+  useEffect(() => {
+    getter("news/all?category=yangilik", news, seNews);
+  }, []);
+
   return (
     <div className="container mx-auto w-[90%] py-10">
-      <Link to={`/${i18next.language}/news/details/${1}`}>
-        <Card
-          imgAlt="Meaningful alt text for an image that is not purely decorative"
-          imgSrc="https://tsue.uz/media/news_gallery/616A9586.jpeg"
-          className="w-96"
-        >
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            <p>Noteworthy technology acquisitions 2021</p>
-          </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            <p>
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
-          </p>
-        </Card>
-      </Link>
+      <h1 className="text-center text-3xl font-semibold mb-10">Yangiliklar</h1> 
+      <div className="grid grid-cols-3 gap-20">
+        {news.data.slice(0, 9).map((item) => (
+          <Link to={`/${i18next.language}/news/details/${item?._id}`}>
+            <Card
+              imgAlt="Meaningful alt text for an image that is not purely decorative"
+              imgSrc={`https://backend.tkti.uz/${item?.photo}`}
+              className=""
+            >
+              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-20">
+                <p className="line-clamp-2">
+                  {item[`title_${i18next.language}`]}
+                </p>
+              </h5>
+            </Card>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
-("use client");

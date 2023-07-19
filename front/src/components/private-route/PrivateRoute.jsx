@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { Spinner } from "flowbite-react";
 import i18next from "i18next";
 
 import { useAppContext } from "../../context/app.context";
@@ -28,7 +29,9 @@ export const PrivateRoute = ({ children, key }) => {
   // localdan olib backkendga jonatadi agar bor bolsa kiradi bulmasa yuq
   // ungacha loading bolib turadi
   if (state.err) return <h1>{state.err}</h1>
-  if (state.loading) return <h1>Loading...</h1>
+  if (state.loading) return <div className="w-full h-full flex items-center justify-center">
+  <Spinner aria-label="Extra large spinner example" size="xl" className="" />
+</div>
   if (state.login) return children;
   else return <Navigate to={`/${i18next.language}/login`} replace />;
 };

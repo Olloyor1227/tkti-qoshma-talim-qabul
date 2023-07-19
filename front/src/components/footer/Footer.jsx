@@ -23,19 +23,14 @@ export const Footer = () => {
         <div className="container mx-auto w-[90%] my-[40px]">
           <div className="container  flex justify-between  items-center ">
             <div className="">
-              <Link to="/" className="my-4 block  ">
-                <div className="flex items-center ">
-                  <img src={logo} alt="Main logo" width={"80"} height={"20"} />
-                  {/* <div
-                    className={`text-white lg:text-2xl xl:text-xl md:text-lg  md:w-[70%] font-bold`}
-                  >
-                    <div className="text-[14px] mx-3">
-                      <div>{t("TktiName.0.name")}</div>
-                      <div>{t("TktiName.1.name")}</div>
-                      <div>{t("TktiName.2.name")}</div>
-                    </div>
-                  </div> */}
-                </div>
+              <Link to="/" >
+                <img
+                  src={logo}
+                  alt=""
+                  width={"80"}
+                  height={"20"}
+                  className="mb-10"
+                />
               </Link>
               <div className="flex gap-4    items-end justify-between ">
                 <div className="lg:flex lg:flex-col flex-row-reverse   max-md:flex-col max-md:gap-10 ">
@@ -133,7 +128,7 @@ export const Footer = () => {
 
           <hr />
           <div className="text-white  flex justify-center my-3 text-xl">
-          {t("ContactUs.2.manzil")}
+            {t("ContactUs.2.manzil")}
           </div>
         </div>
       </footer>

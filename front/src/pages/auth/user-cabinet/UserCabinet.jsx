@@ -1,7 +1,161 @@
-import React from 'react'
+import { useState, useEffect } from "react";
+import { Spinner, Modal, Label, FileInput, Button } from 'flowbite-react';
+
+import { ApiClietServices, imgBaseURL } from "../../../helpers";
+import { useLocalStorage } from "../../../hooks";
+const { patch, get } = new ApiClietServices();
 
 export const UserCabinet = () => {
+  const { getItem } = useLocalStorage()
+  const [ userData, setUserData] = useState({loading: true, data: {}, err: null})
+  const [ modal, setModal] = useState(false)
+
+  const payForApplication = (e) => {
+      e.preventDefault()
+
+      const user = getItem("user", true)
+
+      const data = {...userData.data}
+      delete data.__v
+      delete data._id
+      delete data.updatedAt
+      delete data.createdAt
+      delete data.paid_file
+
+      const frData = new FormData()
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const value = data[key];
+          frData.append(key, value);
+        }
+      }
+      frData.append("file", e.target.paid_file.files[0])
+
+      patch(`application/${user?._id}`, frData, true)
+      .then(res => {
+        console.log(res, "res")
+        alert(res?.message)
+        location.reload()
+      })
+      .catch(err => console.log(err, "err"))
+  }
+
+  useEffect(() => {
+      const user = getItem("user", true)
+
+      get(`application/${user?._id}`)
+      .then(res => {
+        res?.success ? setUserData({loading: false, data: res?.data, err: false}) : setUserData({loading: false, data: {}, err: true})
+      })
+      .catch(err => setUserData({loading: false, data: {}, err: true}))
+  }, [])
+
+  if (userData.loading) return <div className="w-full h-full flex items-center justify-center">
+    <Spinner aria-label="Extra large spinner example" size="xl" className="" />
+  </div>
   return (
-    <div className='container mx-auto w-[90%]'>UserCabinet</div>
-  )
-}
+    <>
+      <Modal dismissible show={modal} onClose={() => setModal(false)}>
+        <Modal.Header>Arizani faollashtirish</Modal.Header>
+        <Modal.Body>
+          <form onSubmit={payForApplication}>
+            <div className="max-w-md mb-5" id="fileUpload" >
+              <div className="mb-2 block">
+                <Label
+                  htmlFor="file"
+                  value="To'lov kvitansiyasining rasmini yuklang"
+                />
+              </div>
+              <FileInput
+                helperText="Yuklangan rasm sifatli bo'lishi kerak, bu sizning arizangizni faollashtirishda muhim"
+                id="file"
+                name="paid_file"
+                accept=".png, .jpg, .jpeg"
+                required
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button type="submit" className="bg-green-600 hover:bg-green-800">
+                Faollashtirish
+              </Button>
+              <Button type="default" className="bg-red-600 hover:bg-red-800">
+                Bekor qilish
+              </Button>
+            </div>
+          </form>
+        </Modal.Body>
+      </Modal>
+      <div className="container mx-auto w-[90%] py-10">
+        <div className="flex justify-between items-center mb-10">
+        <h1 className="text-3xl font-bold ">Shaxsiy ma’lumotlar</h1>
+        { userData.data.paid_file ? null :  <Button type="submit" className="bg-green-600 hover:bg-green-800" onClick={() => setModal(true)}>Faollashtirish</Button>}
+      
+        </div>
+        <div className="flex gap-20 items-start  max-md:flex-col">
+          {/* Img and status section */}
+          <div className="w-72 h-44">
+            <img
+              className="w-full h-full object-cover"
+              src={imgBaseURL + userData.data?.photo ?? ""}
+              alt="3x4 img"
+            />
+            <span className={`rounded-lg px-6 py-2 text-white ${userData.data.paid_file ? "bg-green-500" : "bg-red-600"}`}>{userData.data.paid_file ? "Faol" : "Nofaol"}</span>
+          </div>
+
+          {/* User details info section */}
+          <div className="flex-1">
+            <div className="flex gap-10 mb-5 max-md:flex-col">
+              <p className="flex flex-col"> <span className="text-gray-400">JSHSHR</span> <b>{userData.data?.jshshr}</b> </p>
+              <p className="flex flex-col"> <span className="text-gray-400">Passpoer seriyasi va raqami</span> <b>{userData.data?.passport_number}</b> </p>
+            </div>
+
+            <div className="flex gap-10 mb-5 max-md:flex-col">
+              <p className="flex flex-col"> <span className="text-gray-400">Ismi</span> <b>{userData.data?.name}</b> </p>
+              <p className="flex flex-col"> <span className="text-gray-400">Tug'ilgan sanasi</span> <b>{userData.data?.dob}</b> </p>
+            </div>
+
+            <div className="flex gap-10 mb-5 max-md:flex-col">
+              <p className="flex flex-col"> <span className="text-gray-400">Familiyasi</span> <b>{userData.data?.surname}</b> </p>
+              <p className="flex flex-col"> <span className="text-gray-400">Jinsi</span> <b>{userData.data?.gender}</b> </p>
+            </div>
+
+            <div className="flex gap-10 mb-5 max-md:flex-col">
+              <p className="flex flex-col"> <span className="text-gray-400">Otasining ismi</span> <b>{userData.data?.fathername}</b> </p>
+              <p className="flex flex-col"> <span className="text-gray-400">Passport amal qilish muddati</span> <b>{userData.data?.passport_dob}</b> </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <p className="flex flex-col"> <span className="text-gray-400">Manzili</span> <b>{userData.data?.address}</b> </p>
+              <p className="flex flex-col"> <span className="text-gray-400">Telefoni</span> <b>{userData.data?.tel}</b> </p>
+            </div>
+
+            <hr className="border border-dashed border-black my-10" />
+
+            <div className="flex gap-20 max-md:flex-col">
+              <div className="flex flex-col gap-4">
+                <p className="flex flex-col"> <span className="text-gray-400">Tugatgan OTM</span> <b>{userData.data?.complated_edu}</b> </p>
+                <p className="flex flex-col"> <span className="text-gray-400">Davlati</span> <b>{userData.data?.state}</b> </p>
+                <p className="flex flex-col"> <span className="text-gray-400">Talim turi</span> <b>{userData.data?.edu_type}</b> </p>
+                <p className="flex flex-col"> <span className="text-gray-400">Talim tili</span> <b>{userData.data?.edu_lang}</b> </p>
+                <p className="flex flex-col"> <span className="text-gray-400">Tali darajasi</span> <b>{userData.data?.edu_degree}</b> </p>
+                <p className="flex flex-col"> <span className="text-gray-400">Fakulteti</span> <b>{userData.data?.faculty}</b> </p>
+              </div>
+              { userData.data?.paid_file 
+                ? <div className="w-full h-auto">
+                    <h1 className="text-gray-400 mb-2">To'lov kvitansiyasi</h1>
+                    <img
+                      className="object-cover"
+                      src={imgBaseURL + userData.data?.photo ?? ""}
+                      alt="Paid check img"
+                    />
+                  </div> 
+                : null 
+              }
+            </div>
+
+
+          </div>
+        </div>
+      </div></>
+  );
+};

@@ -7,3 +7,8 @@
     /* padding: 3px; */
     box-sizing: content-box;
 }
+
+a > div > img {
+    height: 300px;
+    object-fit: cover;
+}

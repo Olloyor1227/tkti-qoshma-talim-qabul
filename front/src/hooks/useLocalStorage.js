@@ -8,10 +8,10 @@ export const useLocalStorage = () => {
     setValue(value);
   };
 
-  const getItem = (key) => {
+  const getItem = (key, parser) => {
     const value = localStorage.getItem(key);
     setValue(value);
-    return value;
+    return parser ? JSON.parse(value) : value;
   };
 
   const removeItem = (key) => {
