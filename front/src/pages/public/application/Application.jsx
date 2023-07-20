@@ -17,39 +17,18 @@ export function Application() {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [data, setData] = useState({ loading: false, msg: "" });
-  // const [ states, setStates ] = useState([])
+  const [eduDetails, setEduDetails] = useState({});
+  const [direction, setDirection] = useState([]);
 
-  const languages = ["Ingliz", "Rus"];
   const types = ["Kunduzgi", "Kechki", "Sirtqi"];
-  const degrees = ["Bakalavriyat", "Magistratutra"]
+  const degrees = ["Bakalavriyat", "Magistratutra"];
   const counteries = ["Latviya", "Turkiya", "Belorusiya", "Ozarbayjon"];
-  const derctions = [
-    `
-    Atrof muhit muhofazasi (tarmoqlar va sohalar bo'yicha)
-    Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)
-    Yog'ochga ishlov berish texnologiyasi va yog'ochshunoslik
-    Kimyoviy texnologiya jarayonlari va apparatlari (ishlab chiqarish turi bo'yicha)
-    Marketing (tarmoqlar va sohalar)
-    Menejment (tarmoqlar va sohalar)
-    Kimyoviy va neft-gazkimyoviy texnologiyalar
-    `
-    ,
-    `
-    Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish (tarmoqlar bo'yicha)
-    Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)
-    Biznesni boshqarish (Master of Business Administration-MBA)
-    Menejment (kimyo va oziq-ovqat sanoati)
-    Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)
-    Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish va boshqarish (tarmoqlar bo'yicha) 
-    Texnologik mashinalar va jihozlar (tarmoqlar bo'yicha)
-    `,
-    `
-    Kimyoviy texnologiya (ishlab chiqarish turlari bo'yicha) 
-    Oziq-ovqat texnologiyasi (don mahsulotlari)
-    Texnologik jarayonlarni boshqarishning axborot – kommunikasiya tizimlari
-    Iqtisodiyot (tarmoqlar va sohalar bo'yicha)
-    Oziq-ovqat texnologiyasi (mahsulot turlari bo'yicha)`
-  ]
+  const languages = ["Ingliz", "Rus", "Ingliz-Turk"];
+
+  const handleSelect = (e) => {
+    const { name, value } = e.target;
+    setEduDetails((prev) => ({ ...prev, [name]: value }));
+  };
 
   const changeHandler = (e) => {
     const imageMimeType = /image\/(png|jpg|jpeg)/i;
@@ -102,6 +81,93 @@ export function Application() {
       }
     };
   }, [file]);
+
+  useEffect(() => {
+    if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Bakalavriyat" &&
+      eduDetails?.state === "Latviya" &&
+      eduDetails?.edu_lang === "Ingliz"
+    )
+      setDirection([
+        "Oziq-ovqat texnologiyasi (mahsulot turlari bo'yicha)",
+        "Iqtisodiyot (tarmoqlar va sohalar bo'yicha)",
+      ]);
+    else if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Bakalavriyat" &&
+      eduDetails?.state === "Turkiya" &&
+      eduDetails?.edu_lang === "Ingliz-Turk"
+    )
+      setDirection([
+        "Texnologik jarayonlarni boshqarishning axborot – kommunikasiya tizimlari",
+      ]);
+    else if (
+      eduDetails?.edu_type === "Sirtqi" &&
+      eduDetails?.edu_degree === "Bakalavriyat" &&
+      eduDetails?.state === "Belorusiya" &&
+      eduDetails?.edu_lang === "Rus"
+    )
+      setDirection([
+        "Oziq-ovqat texnologiyasi (don mahsulotlari)",
+        "Kimyoviy texnologiya (ishlab chiqarish turlari bo'yicha)",
+      ]);
+    else if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Bakalavriyat" &&
+      eduDetails?.state === "Belorusiya" &&
+      eduDetails?.edu_lang === "Rus"
+    )
+      setDirection([
+        "Texnologik mashinalar va jihozlar (tarmoqlar bo'yicha)",
+        "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish va boshqarish (tarmoqlar bo'yicha)",
+        "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
+        "Menejment (kimyo va oziq-ovqat sanoati)",
+      ]);
+    else if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Magistratutra" &&
+      eduDetails?.state === "Latviya" &&
+      eduDetails?.edu_lang === "Ingliz"
+    )
+      setDirection([
+        "Biznesni boshqarish (Master of Business Administration-MBA)",
+        "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
+        "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
+        "Menejment (kimyo va oziq-ovqat sanoati)",
+      ]);
+    else if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Magistratutra" &&
+      eduDetails?.state === "Turkiya" &&
+      eduDetails?.edu_lang === "Ingliz-Turk"
+    )
+      setDirection([
+        "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish (tarmoqlar bo'yicha)",
+      ]);
+    else if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Magistratutra" &&
+      eduDetails?.state === "Ozarbayjon" &&
+      eduDetails?.edu_lang === "Ingliz"
+    )
+      setDirection(["Kimyoviy va neft-gazkimyoviy texnologiyalar"]);
+    else if (
+      eduDetails?.edu_type === "Kunduzgi" &&
+      eduDetails?.edu_degree === "Magistratutra" &&
+      eduDetails?.state === "Belorusiya" &&
+      eduDetails?.edu_lang === "Rus"
+    )
+      setDirection([
+        "Menejment (tarmoqlar va sohalar)",
+        "Marketing (tarmoqlar va sohalar)",
+        "Kimyoviy texnologiya jarayonlari va apparatlari (ishlab chiqarish turi bo'yicha)",
+        "Yog'ochga ishlov berish texnologiyasi va yog'ochshunoslik",
+        "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
+        "Atrof muhit muhofazasi (tarmoqlar va sohalar bo'yicha)",
+      ]);
+    else setDirection([]);
+  }, [eduDetails]);
 
   return (
     <div className="container mx-auto w-[90%] py-10 relative">
@@ -290,42 +356,26 @@ export function Application() {
               />
             </div>
 
-            {/* STATE */}
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="state" value="Davlat" />
-              </div>
-              <Select id="state" required shadow name="state">
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
-              </Select>
-            </div>
-
             {/* EDU TYPE */}
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="edu_type" value="Talim darajasi" />
+                <Label htmlFor="edu_type" value="Talim turi" />
               </div>
-              <Select id="edu_type" required shadow name="edu_type">
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
-              </Select>
-            </div>
-
-            {/* EDU LANG */}
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="edu_lang" value="Talim tili" />
-              </div>
-              <Select id="edu_lang" required shadow name="edu_lang">
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+              <Select
+                id="edu_type"
+                required
+                shadow
+                name="edu_type"
+                onChange={handleSelect}
+              >
+                <option value="" hidden>
+                  ...
+                </option>
+                {types.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
               </Select>
             </div>
 
@@ -334,11 +384,67 @@ export function Application() {
               <div className="mb-2 block">
                 <Label htmlFor="edu_degree" value="Talim darajasi" />
               </div>
-              <Select id="edu_degree" required shadow name="edu_degree">
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+              <Select
+                id="edu_degree"
+                required
+                shadow
+                name="edu_degree"
+                onChange={handleSelect}
+              >
+                <option value="" hidden>
+                  ...
+                </option>
+                {degrees.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            {/* STATE */}
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="state" value="Davlat" />
+              </div>
+              <Select
+                id="state"
+                required
+                shadow
+                name="state"
+                onChange={handleSelect}
+              >
+                <option value="" hidden>
+                  ...
+                </option>
+                {counteries.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            {/* EDU LANG */}
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="edu_lang" value="Talim tili" />
+              </div>
+              <Select
+                id="edu_lang"
+                required
+                shadow
+                name="edu_lang"
+                onChange={handleSelect}
+              >
+                <option value="" hidden>
+                  ...
+                </option>
+                {languages.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
               </Select>
             </div>
 
@@ -348,10 +454,12 @@ export function Application() {
                 <Label htmlFor="faculty" value="Fakultet" />
               </div>
               <Select id="faculty" required shadow name="faculty">
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+                <option value="">...</option>
+                {direction.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
               </Select>
             </div>
 
@@ -391,21 +499,6 @@ export function Application() {
                   />
                 </label>
               </div>
-              {/* <div className="md:w-1/2">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="passport_dob"
-                    value="Passport berilgan sana"
-                  />
-                </div>
-                <TextInput
-                  name="file"
-                  id="passport_dob"
-                  required
-                  shadow
-                  type="file"
-                />
-              </div> */}
             </div>
           </div>
         </div>
