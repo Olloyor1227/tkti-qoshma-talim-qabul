@@ -36,9 +36,9 @@ export const Header = () => {
 
   return (
     <header
-      className={`py-4 sticky top-0 w-full z-10 text-white transition-opacity bg-[#26597E]`}
+      className={`py-4 top-0 w-full z-10 text-white transition-opacity bg-[#26597E]`}
     >
-      <div className="flex items-center justify-between container mx-auto w-[90%] h-16">
+      <div className="flex items-center justify-between container mx-auto w-[90%]">
         <div className="w-1/6">
           <Link to="/">
             <img src={logo} alt="" width={"80"} height={"15"} className="" />

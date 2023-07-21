@@ -1,4 +1,4 @@
-import { http, fetchApi } from "../helpers";
+import { http, fetchApi, foreignBaseURL } from "../helpers";
 
 export class ClientApiService {
   get(url) {
@@ -22,7 +22,7 @@ export class ApiClietServices {
   getter = async (url, state, setState) => {
     setState({ ...state, loading: true });
     const res = await (
-      await fetch(`https://backend.tkti.uz/${url}`, {
+      await fetch(`${foreignBaseURL}${url}`, {
         headers: { "Content-type": "application/json" },
       })
     ).json();

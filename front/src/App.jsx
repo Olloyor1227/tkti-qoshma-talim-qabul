@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { AdminLayout, UserLayout } from "./layouts";
-import { Login, Application, Home, UserCabinet, News, NewsDetails, Applicants, AddNews, Banner } from "./pages";
+import { UserLayout } from "./layouts";
+import { Login, Application, Home, UserCabinet, News, NewsDetails } from "./pages";
 import { PrivateRoute } from "./components";
 
 import { useAppContext } from "./context/app.context"
@@ -27,9 +27,7 @@ function App() {
     }
   }, [user]);
 
-  // const { user, login, logout, setUser } = useAuth();
   return (
-    // <AuthContext.Provider value={{ user, setUser }}>
       <Routes>
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
@@ -39,15 +37,7 @@ function App() {
           <Route path=":lang/news/details/:id" element={<NewsDetails />} />
           <Route path=":lang/cabinet" element={<PrivateRoute><UserCabinet /></PrivateRoute>} />
         </Route>
-
-        <Route path="users-list" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
-          <Route index element={<Applicants />} />
-          <Route path="applications" element={<Applicants />} />
-          <Route path="news" element={<AddNews />} />
-          <Route path="benner" element={<Banner />} />
-        </Route>
       </Routes>
-    // </AuthContext.Provider>
   );
 }
 

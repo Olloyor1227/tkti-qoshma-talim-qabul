@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Carousel, Spinner, Card } from "flowbite-react";
 import i18next from "i18next";
 
-import { ApiClietServices } from "../../../helpers"
+import { ApiClietServices, foreignBaseURL } from "../../../helpers"
 const { getter } = new ApiClietServices()
 
 export const Home = () => {
@@ -32,10 +32,10 @@ export const Home = () => {
           {data.data.map((item) => (
             <div key={item?._id} className="h-[500px] max-md:h-screen">
               <img
-                src={`https://backend.tkti.uz/${item?.banner_img}`}
+                src={`${foreignBaseURL}${item?.banner_img}`}
                 alt={item?.title}
                 loading="lazy"
-                className="object-cover"
+                className="md:object-cover h-full w-full"
               />
             </div>
           ))}
@@ -46,12 +46,12 @@ export const Home = () => {
         <h1 className="text-center text-3xl font-semibold mb-10">
           Yangiliklar
         </h1>
-        <div className="grid grid-cols-3 gap-20">
+        <div className="grid grid-cols-3 gap-20 max-md:grid-cols-1">
           {news.data.slice(0,9).map((item) => (
             <Link to={`/${i18next.language}/news/details/${item?._id}`}>
               <Card
                 imgAlt="Meaningful alt text for an image that is not purely decorative"
-                imgSrc={`https://backend.tkti.uz/${item?.photo}`}
+                imgSrc={`${foreignBaseURL}${item?.photo}`}
                 className=""
               >
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-20">

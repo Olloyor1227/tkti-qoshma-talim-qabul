@@ -26,7 +26,7 @@ export const News = () => {
   return (
     <div className="container mx-auto w-[90%] py-10">
       <h1 className="text-center text-3xl font-semibold mb-10">Yangiliklar</h1>
-      <div className="grid grid-cols-3 gap-20">
+      <div className="grid grid-cols-3 gap-20 max-md:grid-cols-1">
         {news.data.slice(0, 9).map((item) => (
           <Link to={`/${i18next.language}/news/details/${item?._id}`}>
             <Card
