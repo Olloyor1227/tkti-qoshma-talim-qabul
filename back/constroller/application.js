@@ -189,15 +189,42 @@ class ApplicationController {
         .json({ status: 500, message: "invalid request", success: false });
     }
   }
-  async Get(_, res) {
+  // async Get(_, res) {
+  //   try {
+  //     const Media = await Application_data.find();
+  //     console.log(Media);
+  //     res.status(200).json({
+  //       status: 200,
+  //       success: true,
+  //       message: `Yaxshi uka`,
+  //       data: Media,
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //     res
+  //       .status(500)
+  //       .json({ status: 500, message: "invalid request", success: false });
+  //   }
+  // }
+  async Get(req, res) {
     try {
-      const Media = await Application_data.find();
-      console.log(Media);
+      // const News = await News_data.find().sort({_id:-1});
+      const { page } = req.query;
+      const totalCount = await Application_data.find().sort({ date: -1 });
+      const total = totalCount?.length;
+      const Applications = totalCount.splice(
+        page && page > 1 ? Number(page) * 10 - 10 : 0,
+        10
+      );
+
       res.status(200).json({
         status: 200,
         success: true,
         message: `Yaxshi uka`,
-        data: Media,
+        total: total,
+        perPage: 10,
+        currentPage: Applications?.length,
+        data: Applications,
       });
     } catch (e) {
       console.log(e);
