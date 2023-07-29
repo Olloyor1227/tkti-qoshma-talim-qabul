@@ -10,6 +10,7 @@ const Form = lazy(() => import("./admin/form/Form"))
 const FormHeader = lazy(() => import("./admin/form_header/FormHeader"))
 const Table = lazy(() => import("./admin/table/Table"))
 const ModalWrapper = lazy(() => import("./admin/modal_wrapper/ModalWrapper"))
+const Pagination = lazy(() => import("./admin/pagination/Pagination"))
 
 export {
   Sidebar,
@@ -21,5 +22,6 @@ export {
   Form,
   FormHeader, 
   Table,
-  ModalWrapper
+  ModalWrapper,
+  Pagination
 };

@@ -6,6 +6,7 @@ import {
   FormHeader,
   SkeletonPost,
   Table,
+  Pagination,
 } from "../../../components";
 import { DeleteIcon, EditIcon } from "../../../assets/icons";
 
@@ -13,10 +14,10 @@ import { ClientApiService } from "../../../utils/apiClient";
 import { imgBaseURL } from "../../../utils/http";
 const { add, get, update } = new ClientApiService();
 
-const getter = async (state, setState) => {
+const getter = async (state, setState, page=1) => {
   setState({ ...state, loading: true });
-  const res = await get("application/");
-  if (res?.success) setState({ loading: false, data: res?.data, err: "" });
+  const res = await get(`application/?page=${page}`);
+  if (res?.success) setState({ loading: false, data: res?.data, totalItems: res?.total , err: "" });
   else setState({ loading: false, data: [], err: "Server bilan xatolik" });
 };
 
@@ -24,10 +25,24 @@ const Users = () => {
   const [status, setStatus] = useState("read");
   const [onEdit, setOnEdit] = useState("");
   const [news1, setNews1] = useState({});
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  const [state, setstate] = useState({
+    totalPages: 3,
+    currentPage: 1
+  });
+
+  const { currentPage } = state;
+
+  const handlePagination = (current) => {
+    setstate({ ...state, currentPage: current });
+  };
 
   useEffect(() => {
-    getter(news1, setNews1);
-  }, []);
+    getter(news1, setNews1, state.currentPage);
+  }, [state.currentPage]);
+
+  console.log(news1)
 
   const analyseNameTableHead = [
     "T/r",
@@ -105,6 +120,18 @@ const Users = () => {
         bodyData={news1?.data ?? []}
         renderBody={renderBody}
         limit={10}
+      />
+      {/* <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={news1?.totalItems}
+        pageSize={10}
+        onPageChange={page => setCurrentPage(page)}
+      /> */}
+      <Pagination
+        total={Number(Math.round(news1?.totalItems/10) + 1)}
+        current={currentPage}
+        pagination={(crPage) => handlePagination(crPage)}
       />
     </div>
   );
