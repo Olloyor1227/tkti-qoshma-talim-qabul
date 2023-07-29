@@ -13,7 +13,7 @@ const Sidebar = () => {
       <div className="space-y-3">
         <div className="flex items-center">
           <h2 className="text-xl font-bold text-white">
-            Yangiyer flour trading{" "}
+            TKTI Qo'shma ta'lim{" "}
           </h2>
         </div>
 

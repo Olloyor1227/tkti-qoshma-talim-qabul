@@ -19,10 +19,7 @@ import {
 
 function App() {
   return (
-    <div
-      className={`w-screen h-screen overflow-x-hidden flex flex-col`}
-      onScroll={(e) => smallActions.handleScroll(e.currentTarget.scrollTop)}
-    >
+    <div className={`w-screen h-screen overflow-x-hidden flex flex-col`}>
       <Routes>
         <Route path="/" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>} >
             <Route
