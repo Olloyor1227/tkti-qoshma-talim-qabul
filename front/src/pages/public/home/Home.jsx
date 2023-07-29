@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Carousel, Spinner, Card } from "flowbite-react";
 import i18next from "i18next";
 
-import { ApiClietServices, baseURL, foreignBaseURL, imgBaseURL, slug } from "../../../helpers"
+import { ApiClietServices, foreignBaseURL, imgBaseURL, slug } from "../../../helpers"
 const { getter, getterFromTkti } = new ApiClietServices()
 
 export const Home = () => {
