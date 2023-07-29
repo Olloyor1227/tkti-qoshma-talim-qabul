@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { Card, Spinner } from "flowbite-react";
 import i18next from "i18next";
 
-import { ApiClietServices } from "../../../helpers";
-const { getter } = new ApiClietServices();
+import { ApiClietServices, slug } from "../../../helpers";
+const { getterFromTkti } = new ApiClietServices();
 
 export const News = () => {
   const [news, seNews] = useState({ loading: true, data: [], err: null });
 
   useEffect(() => {
-    getter("news/all?category=yangilik", news, seNews);
+    getterFromTkti("news/all?category=yangilik", news, seNews);
   }, []);
 
   if (news.loading)
@@ -28,7 +28,7 @@ export const News = () => {
       <h1 className="text-center text-3xl font-semibold mb-10">Yangiliklar</h1>
       <div className="grid grid-cols-3 gap-20 max-md:grid-cols-1">
         {news.data.slice(0, 9).map((item) => (
-          <Link to={`/${i18next.language}/news/details/${item?._id}`}>
+          <Link to={`/${i18next.language}/news/details/${slug(item?.title_uz)}`}>
             <Card
               imgAlt="Meaningful alt text for an image that is not purely decorative"
               imgSrc={`https://backend.tkti.uz/${item?.photo}`}

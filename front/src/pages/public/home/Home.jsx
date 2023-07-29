@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Carousel, Spinner, Card } from "flowbite-react";
 import i18next from "i18next";
 
-import { ApiClietServices, baseURL, foreignBaseURL, imgBaseURL } from "../../../helpers"
+import { ApiClietServices, baseURL, foreignBaseURL, imgBaseURL, slug } from "../../../helpers"
 const { getter, getterFromTkti } = new ApiClietServices()
 
 export const Home = () => {
@@ -48,7 +48,7 @@ export const Home = () => {
         </h1>
         <div className="grid grid-cols-3 gap-20 max-md:grid-cols-1">
           {news.data.slice(0,9).map((item) => (
-            <Link to={`/${i18next.language}/news/details/${item?._id}`}>
+            <Link to={`/${i18next.language}/news/details/${slug(item?.title_uz)}`}>
               <Card
                 imgAlt="Meaningful alt text for an image that is not purely decorative"
                 imgSrc={`${foreignBaseURL}${item?.photo}`}

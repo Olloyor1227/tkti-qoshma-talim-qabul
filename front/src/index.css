@@ -12,3 +12,9 @@ a > div > img {
     height: 300px;
     object-fit: cover;
 }
+
+.news-details-body img {
+    margin-bottom: 20px;
+    width: 100%;
+    height: auto;
+}
