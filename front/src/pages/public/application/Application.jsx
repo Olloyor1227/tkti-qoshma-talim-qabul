@@ -52,8 +52,8 @@ export function Application() {
       alert(res?.message);
       setData({ loading: false, msg: res?.message });
     } else {
-      setData({ loading: false, msg: res?.statusText });
-      alert(res?.statusText);
+      setData({ loading: false, msg: res?.message });
+      alert(res?.message);
     }
 
     // for (var pair of formData.entries()) {

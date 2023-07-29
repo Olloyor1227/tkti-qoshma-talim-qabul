@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Carousel, Spinner, Card } from "flowbite-react";
 import i18next from "i18next";
 
-import { ApiClietServices, foreignBaseURL } from "../../../helpers"
-const { getter } = new ApiClietServices()
+import { ApiClietServices, baseURL, foreignBaseURL, imgBaseURL } from "../../../helpers"
+const { getter, getterFromTkti } = new ApiClietServices()
 
 export const Home = () => {
   const [data, seData] = useState({ loading: true, data: [], err: null });
@@ -12,7 +12,7 @@ export const Home = () => {
 
   useEffect(() => {
     getter("banner/get/all", data, seData);
-    getter("news/all?category=yangilik", news, seNews);
+    getterFromTkti("news/all?category=yangilik", news, seNews);
   }, []);
 
   if (data.loading)
@@ -32,7 +32,7 @@ export const Home = () => {
           {data.data.map((item) => (
             <div key={item?._id} className="h-[500px] max-md:h-screen">
               <img
-                src={`${foreignBaseURL}${item?.banner_img}`}
+                src={`${imgBaseURL}${item?.banner_img}`}
                 alt={item?.title}
                 loading="lazy"
                 className="md:object-cover h-full w-full"

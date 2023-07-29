@@ -1,4 +1,4 @@
-import { http, fetchApi, foreignBaseURL } from "../helpers";
+import { http, fetchApi, foreignBaseURL, baseURL } from "../helpers";
 
 export class ClientApiService {
   get(url) {
@@ -20,6 +20,16 @@ export class ClientApiService {
 
 export class ApiClietServices {
   getter = async (url, state, setState) => {
+    setState({ ...state, loading: true });
+    const res = await (
+      await fetch(`${baseURL}${url}`, {
+        headers: { "Content-type": "application/json" },
+      })
+    ).json();
+    if (res?.success) setState({ loading: false, data: res?.data, err: "" });
+    else setState({ loading: false, data: [], err: "Server bilan xatolik" });
+  };
+  getterFromTkti = async (url, state, setState) => {
     setState({ ...state, loading: true });
     const res = await (
       await fetch(`${foreignBaseURL}${url}`, {
