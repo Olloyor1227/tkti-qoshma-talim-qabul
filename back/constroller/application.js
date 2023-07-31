@@ -5,9 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const setToken = (payload) =>
-  jwt.sign(payload, "MUSAFFO_SKY", {
-    expiresIn: "48h", // token 2kundan keyin eskiradi, token eskirgandan keyin admin pashti hech nima qilomeydi yangilab login qivomagancha
-  });
+  jwt.sign(payload, "MUSAFFO_SKY", {});
 
 class ApplicationController {
   async Add(req, res) {
