@@ -22,7 +22,7 @@ router.post(
   },
   BannerController.Add
 );
-router.get("/get/all", middleware.checkContentType, middleware.checkToken, BannerController.Get);
+router.get("/get/all", middleware.checkContentType, BannerController.Get);
 router.get(
   "/:id",
   middleware.checkParamsId,
