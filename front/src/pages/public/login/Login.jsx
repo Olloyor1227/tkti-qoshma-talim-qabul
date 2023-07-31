@@ -30,7 +30,7 @@ export function Login() {
       window.location.href = `/${i18next.language}/cabinet`;
     } else {
       setLoading(false);
-      setText(res?.statusText);
+      alert(res?.data)
     }
   };
 

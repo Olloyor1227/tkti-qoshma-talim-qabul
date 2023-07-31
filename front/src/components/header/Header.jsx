@@ -87,7 +87,7 @@ export const Header = () => {
         </div>
         
         <div className="flex items-center justify-end gap-3">
-          <div
+          {/* <div
             className="items-center gap-3 text-white ml-10 p-2.5 rounded cursor-pointer xl:flex hidden relative"
             onClick={() => setOpen({ ...isOpen, lang: !isOpen.lang })}
           >
@@ -107,7 +107,7 @@ export const Header = () => {
                 ))}
               </ul>
             )}
-          </div>
+          </div> */}
 
           {
             authState ? <Link to={`${i18next.language}/cabinet`} className="rounded-full w-6 h-6 bg-white text-black flex justify-center items-center p-2">{userNameFirstLatter}</Link> : null

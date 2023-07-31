@@ -25,6 +25,12 @@ export const Home = () => {
         />
       </div>
     );
+  if (data.err)
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <h2 className="text-2xl">Server bilan xatolik sodir bo'ldi</h2>
+    </div>
+  );
   return (
     <div className="flex flex-col gap-10 mb-10">
       <div className="w-full h-[500px]">
