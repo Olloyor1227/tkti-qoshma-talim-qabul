@@ -33,6 +33,12 @@ const Banner = () => {
     }
   }
 
+  const deleteBanner = (id) => {
+    deleteData(`banner/${id}`)
+    .then(() => {alert("O'chirildi ✅"); location.reload()})
+    .catch(() => alert("Xatolik yuz berdi") )
+  }
+
   useEffect(() => {
     getter(banner, setBanner);
   }, []);
@@ -88,8 +94,7 @@ const Banner = () => {
             className="py-2 px-4 bg-red-500  hover:bg-red-400 text-white text-sm w-full"
             onClick={() => {
               const deleteConfirm = confirm("O'chirishni xoxlaysizmi? ⚡");
-              deleteConfirm && deleteData(`banner/${item._id}`);
-              location.reload()
+              deleteConfirm && deleteBanner(item._id);
             }}
           >
             Delete file

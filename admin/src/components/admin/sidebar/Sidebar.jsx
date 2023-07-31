@@ -67,11 +67,10 @@ const Sidebar = () => {
             <li className="rounded-sm">
               <button
                 onClick={() => {
-                  window.localStorage.removeItem("token");
-                  navigate("/");
-                  window.location.reload(false);
+                  localStorage.clear();
+                  navigate("/tkti-login");
+                  location.reload(false);
                 }}
-                to={"#"}
                 className="flex items-center p-2 space-x-3 rounded-md"
               >
                 <LogoutIcon />

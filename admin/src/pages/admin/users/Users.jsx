@@ -12,12 +12,18 @@ import { DeleteIcon, EditIcon } from "../../../assets/icons";
 
 import { ClientApiService } from "../../../utils/apiClient";
 import { imgBaseURL } from "../../../utils/http";
-const { add, get, update } = new ClientApiService();
+const { deleteData, get, update } = new ClientApiService();
 
-const getter = async (state, setState, page=1) => {
+const getter = async (state, setState, page = 1) => {
   setState({ ...state, loading: true });
   const res = await get(`application/?page=${page}`);
-  if (res?.success) setState({ loading: false, data: res?.data, totalItems: res?.total , err: "" });
+  if (res?.success)
+    setState({
+      loading: false,
+      data: res?.data,
+      totalItems: res?.total,
+      err: "",
+    });
   else setState({ loading: false, data: [], err: "Server bilan xatolik" });
 };
 
@@ -25,11 +31,11 @@ const Users = () => {
   const [status, setStatus] = useState("read");
   const [onEdit, setOnEdit] = useState("");
   const [news1, setNews1] = useState({});
-  // const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
 
   const [state, setstate] = useState({
     totalPages: 3,
-    currentPage: 1
+    currentPage: 1,
   });
 
   const { currentPage } = state;
@@ -38,11 +44,19 @@ const Users = () => {
     setstate({ ...state, currentPage: current });
   };
 
-  useEffect(() => {
-    getter(news1, setNews1, state.currentPage);
-  }, [state.currentPage]);
+  const deleteInvalidUser = (id) => {
+    setOnEdit({ ...onEdit, open: false });
+    deleteData(`application/${id}`)
+      .then(() => {
+        alert("O'chirildi ✅");
+        location.reload();
+      })
+      .catch(() => alert("Xatolik yuz berdi"));
+  };
 
-  console.log(news1)
+  useEffect(() => {
+    getter(news1, setNews1, currentPage);
+  }, [currentPage]);
 
   const analyseNameTableHead = [
     "T/r",
@@ -114,22 +128,26 @@ const Users = () => {
     <h1 className="text-3xl text-center p-10 bg-gray-100">Xatolik yuz berdi</h1>
   ) : (
     <div className="px-10">
+      <label htmlFor="search">
+        <input
+          type="text"
+          id="search"
+          className=" rounded-lg p-2 border border-slate-600 mb-5"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Qidiring"
+        />
+      </label>
       <Table
         headData={analyseNameTableHead}
         renderHead={renderHead}
         bodyData={news1?.data ?? []}
         renderBody={renderBody}
         limit={10}
+        search={search}
       />
-      {/* <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={news1?.totalItems}
-        pageSize={10}
-        onPageChange={page => setCurrentPage(page)}
-      /> */}
       <Pagination
-        total={Number(Math.round(news1?.totalItems/10) + 1)}
+        total={Number(Math.round(news1?.totalItems / 10) + 1)}
         current={currentPage}
         pagination={(crPage) => handlePagination(crPage)}
       />
@@ -303,10 +321,16 @@ const Users = () => {
               <div className="flex justify-between items-center rounded-xl bg-gray-300 p-4">
                 <h1 className="text-2xl">Malumotlar talabga javob beradimi?</h1>
                 <div className="flex gap-5">
-                  <button className="px-6 py-2 rounded-md bg-green-600 text-white">
+                  <button
+                    className="px-6 py-2 rounded-md bg-green-600 text-white"
+                    onClick={() => setOnEdit(null)}
+                  >
                     Ha
                   </button>
-                  <button className="px-6 py-2 rounded-md bg-red-600 text-white">
+                  <button
+                    className="px-6 py-2 rounded-md bg-red-600 text-white"
+                    onClick={() => deleteInvalidUser(onEdit?.obj._id)}
+                  >
                     Yo'q
                   </button>
                 </div>
@@ -317,8 +341,6 @@ const Users = () => {
       )}
       <FormHeader
         title="Arizalar"
-        // event2="Add"
-        // handleEvent2={() => setStatus("create")}
         event1="Barcha arizalar"
         handleEvent1={() => setStatus("read")}
       />

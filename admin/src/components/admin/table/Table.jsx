@@ -53,20 +53,20 @@ const Table = ({
               {dataShow
                 .filter((item) => {
                   if (search && search.length > 0) {
-                    if (item.name_uz) {
-                      return item.name_uz
+                    if (item.name) {
+                      return item.name
                         .toLowerCase()
                         .includes(search.toLowerCase());
-                    } else if (item.title_uz) {
-                      return item.title_uz
+                    } else if (item.passport_number) {
+                      return item.passport_number
                         .toLowerCase()
                         .includes(search.toLowerCase());
-                    } else if (item.kod) {
-                      return item.kod
+                    } else if (item.tel) {
+                      return item.tel
                         .toLowerCase()
                         .includes(search.toLowerCase());
-                    } else if (item.analyseName) {
-                      return item.analyseName
+                    } else if (item.surname) {
+                      return item.surname
                         .toLowerCase()
                         .includes(search.toLowerCase());
                     }
