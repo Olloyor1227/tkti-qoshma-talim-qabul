@@ -11,9 +11,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json({ limit: "5mb" }));
 mongoose.set("strictQuery", true);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/assa", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
-    console.log("success ");
+    console.log("success ", process.env.MONGODB_URI);
   })
   .catch((err) => {
     console.log("error");
@@ -26,7 +26,7 @@ app.use("/api/application", require("./router/application"));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`${PORT} server running now`);
 });
