@@ -37,7 +37,7 @@ const Sidebar = () => {
                 <span className="text-gray-100">Banner</span>
               </Link>
             </li>
-            <li className="rounded-sm">
+            {/* <li className="rounded-sm">
               <Link
                 to={"news"}
                 className="flex items-center p-2 space-x-3 rounded-md"
@@ -45,8 +45,8 @@ const Sidebar = () => {
                 <UsersIcon />
                 <span className="text-gray-100">Yangiliklar</span>
               </Link>
-            </li>
-            <li className="rounded-sm">
+            </li> */}
+            {/* <li className="rounded-sm">
               <Link
                 to={"media"}
                 className="flex items-center p-2 space-x-3 rounded-md"
@@ -54,7 +54,7 @@ const Sidebar = () => {
                 <UsersIcon />
                 <span className="text-gray-100">Media</span>
               </Link>
-            </li>
+            </li> */}
             <li className="rounded-sm">
               <Link
                 to={"application"}

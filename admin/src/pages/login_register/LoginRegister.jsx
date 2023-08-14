@@ -18,7 +18,7 @@ const LoginRegister = () => {
       window.location.reload(false);
       window.location.href = `/`;
     } else {
-      alert(res?.data);
+      alert(res.message);
     }
   };
 
