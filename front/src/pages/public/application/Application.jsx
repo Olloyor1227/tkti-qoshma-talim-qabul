@@ -517,13 +517,13 @@ export function Application() {
             {/* UNIVERSITET */}
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="state" value="Universitet" />
+                <Label htmlFor="univer" value="Universitet" />
               </div>
               <Select
-                id="state"
+                id="univer"
                 required
                 shadow
-                name="state"
+                name="univer"
                 disabled={!eduDatas?.state?.isSelected}
                 onChange={(e) => getDirection(e.target.value)}
               >

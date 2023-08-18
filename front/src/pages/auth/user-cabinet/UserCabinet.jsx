@@ -120,9 +120,6 @@ export const UserCabinet = () => {
               <Button type="submit" className="bg-green-600 hover:bg-green-800">
                 Faollashtirish
               </Button>
-              <Button type="default" className="bg-red-600 hover:bg-red-800">
-                Bekor qilish
-              </Button>
             </div>
           </form>
         </Modal.Body>
