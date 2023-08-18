@@ -70,6 +70,7 @@ class Validate{
         // Educational validations
         complated_edu: joi.string().min(10).required(),
         state: joi.string().min(3).required(),
+        univer: joi.string().min(3).optional(),
         edu_type: joi.string().min(3),
         edu_lang: joi.string().min(3),
         edu_degree: joi.string().min(3),
