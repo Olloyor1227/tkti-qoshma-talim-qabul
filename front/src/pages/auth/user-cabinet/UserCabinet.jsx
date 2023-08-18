@@ -20,6 +20,7 @@ export const UserCabinet = () => {
     err: null,
   });
   const [modal, setModal] = useState(false);
+  const [pdfFile, setPdfFile] = useState(false);
 
   const payForApplication = (e) => {
     e.preventDefault();
@@ -74,7 +75,7 @@ export const UserCabinet = () => {
     const doc = new jsPDF("p", "pt", "a4", true);
 
     // Adding the fonts.
-    doc.setFont("Times New Roman", "normal", 300)
+    doc.setFont("Times New Roman", "normal", 300);
     doc.setFontSize(10);
     doc.html(pdf.current, {
       callback: () => {
@@ -127,6 +128,140 @@ export const UserCabinet = () => {
         </Modal.Body>
       </Modal>
 
+      <Modal dismissible show={pdfFile} onClick={() => setPdfFile(false)}>
+        <Modal.Body>
+          {/* begin::FOR PDF */}
+          <div className="flex flex-col gap-10 w-[550px]" ref={pdf}>
+            {/* PERSONAL INFO */}
+            <div className="flex gap-10">
+              <div className="w-52 h-52">
+                <img
+                  className="w-full h-full object-cover"
+                  // src={imgBaseURL + userData.data?.photo ?? ""}
+                  src={
+                    "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
+                  }
+                  alt="3x4 img"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">Ismi:</span>{" "}
+                  <b>{userData.data?.name}</b>{" "}
+                </p>
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">Familiyasi:</span>{" "}
+                  <b>{userData.data?.surname}</b>{" "}
+                </p>
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">Otasining ismi:</span>{" "}
+                  <b>{userData.data?.fathername}</b>{" "}
+                </p>
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">Tug'ilgan sanasi:</span>{" "}
+                  <b>{userData.data?.dob}</b>{" "}
+                </p>
+                {/* <p className="flex">
+                {" "}
+                <span className="text-gray-400">Jinsi:</span>{" "}
+                <b>{userData.data?.gender}</b>{" "}
+              </p> */}
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">JSHSHR:</span>{" "}
+                  <b>{userData.data?.jshshr}</b>{" "}
+                </p>
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">
+                    Passport seriyasi va raqami:
+                  </span>{" "}
+                  <b>{userData.data?.passport_number}</b>{" "}
+                </p>
+                <p className="flex gap-2">
+                  {" "}
+                  <span className="text-gray-400">
+                    Passport amal qilish muddati:
+                  </span>{" "}
+                  <b>{userData.data?.passport_dob}</b>{" "}
+                </p>
+              </div>
+            </div>
+
+            {/* EDUCATION INFO */}
+            <div className="flex flex-col justify-between gap-10">
+              <div className="flex flex-col gap-2">
+                <p className="flex gap-5">
+                  {" "}
+                  <span className="text-gray-400">Tugatgan OTM:</span>{" "}
+                  <b>{userData.data?.complated_edu}</b>{" "}
+                </p>
+                <p className="flex gap-5">
+                  {" "}
+                  <span className="text-gray-400">Davlati:</span>{" "}
+                  <b>{userData.data?.state}</b>{" "}
+                </p>
+                <p className="flex gap-5">
+                  {" "}
+                  <span className="text-gray-400">Talim turi:</span>{" "}
+                  <b>{userData.data?.edu_type}</b>{" "}
+                </p>
+                <p className="flex gap-5">
+                  {" "}
+                  <span className="text-gray-400">Talim tili:</span>{" "}
+                  <b>{userData.data?.edu_lang}</b>{" "}
+                </p>
+                <p className="flex gap-5">
+                  {" "}
+                  <span className="text-gray-400">Tali darajasi:</span>{" "}
+                  <b>{userData.data?.edu_degree}</b>{" "}
+                </p>
+                <p className="flex gap-5">
+                  {" "}
+                  <span className="text-gray-400">Fakulteti:</span>{" "}
+                  <b>{userData.data?.faculty}</b>{" "}
+                </p>
+              </div>
+
+              <span className="text-gray-400">Tolo'v cheki:</span>
+              <div className="w-full h-36">
+                <img
+                  className="w-full h-full object-cover"
+                  // src={imgBaseURL + userData.data?.photo ?? ""}
+                  src={
+                    "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
+                  }
+                  alt="3x4 img"
+                />
+              </div>
+            </div>
+          </div>
+          {/* end::FOR PDF */}
+          <Modal.Footer>
+            <div className="flex gap-5">
+              <Button
+                type="button"
+                className="bg-green-600 hover:bg-green-800"
+                onClick={() => handleGeneratePdf()}
+              >
+                Yuklash
+              </Button>
+              <Button
+                type="submit"
+                className="bg-orange-600 hover:bg-orange-800"
+                onClick={() => setPdfFile(false)}
+              >
+                Bekor qilish
+              </Button>
+            </div>
+          </Modal.Footer>
+        </Modal.Body>
+      </Modal>
+
       <div className="container mx-auto w-[90%] py-10">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-3xl font-bold ">Shaxsiy ma’lumotlar</h1>
@@ -134,7 +269,7 @@ export const UserCabinet = () => {
             <Button
               type="submit"
               className="bg-green-600 hover:bg-green-800"
-              onClick={() => handleGeneratePdf()}
+              onClick={() => setPdfFile(true)}
             >
               Varaqani yuklab olish
             </Button>
@@ -284,120 +419,6 @@ export const UserCabinet = () => {
             </div>
           </div>
         </div>
-
-        {/* begin::FOR PDF */}
-        <div className="flex flex-col gap-10 w-[550px]" ref={pdf}>
-          
-          {/* PERSONAL INFO */}
-          <div className="flex gap-10">
-            <div className="w-52 h-52">
-              <img
-                className="w-full h-full object-cover"
-                // src={imgBaseURL + userData.data?.photo ?? ""}
-                src={
-                  "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
-                }
-                alt="3x4 img"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">Ismi:</span>{" "}
-                <b>{userData.data?.name}</b>{" "}
-              </p>
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">Familiyasi:</span>{" "}
-                <b>{userData.data?.surname}</b>{" "}
-              </p>
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">Otasining ismi:</span>{" "}
-                <b>{userData.data?.fathername}</b>{" "}
-              </p>
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">Tug'ilgan sanasi:</span>{" "}
-                <b>{userData.data?.dob}</b>{" "}
-              </p>
-              {/* <p className="flex">
-                {" "}
-                <span className="text-gray-400">Jinsi:</span>{" "}
-                <b>{userData.data?.gender}</b>{" "}
-              </p> */}
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">JSHSHR:</span>{" "}
-                <b>{userData.data?.jshshr}</b>{" "}
-              </p>
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">
-                  Passport seriyasi va raqami:
-                </span>{" "}
-                <b>{userData.data?.passport_number}</b>{" "}
-              </p>
-              <p className="flex gap-2">
-                {" "}
-                <span className="text-gray-400">
-                  Passport amal qilish muddati:
-                </span>{" "}
-                <b>{userData.data?.passport_dob}</b>{" "}
-              </p>
-            </div>
-          </div>
-
-          {/* EDUCATION INFO */}
-          <div className="flex flex-col justify-between gap-10">
-            <div className="flex flex-col gap-2">
-              <p className="flex gap-5">
-                {" "}
-                <span className="text-gray-400">Tugatgan OTM:</span>{" "}
-                <b>{userData.data?.complated_edu}</b>{" "}
-              </p>
-              <p className="flex gap-5">
-                {" "}
-                <span className="text-gray-400">Davlati:</span>{" "}
-                <b>{userData.data?.state}</b>{" "}
-              </p>
-              <p className="flex gap-5">
-                {" "}
-                <span className="text-gray-400">Talim turi:</span>{" "}
-                <b>{userData.data?.edu_type}</b>{" "}
-              </p>
-              <p className="flex gap-5">
-                {" "}
-                <span className="text-gray-400">Talim tili:</span>{" "}
-                <b>{userData.data?.edu_lang}</b>{" "}
-              </p>
-              <p className="flex gap-5">
-                {" "}
-                <span className="text-gray-400">Tali darajasi:</span>{" "}
-                <b>{userData.data?.edu_degree}</b>{" "}
-              </p>
-              <p className="flex gap-5">
-                {" "}
-                <span className="text-gray-400">Fakulteti:</span>{" "}
-                <b>{userData.data?.faculty}</b>{" "}
-              </p>
-            </div>
-
-            <span className="text-gray-400">Tolo'v cheki:</span>
-            <div className="w-full h-36">
-              <img
-                className="w-full h-full object-cover"
-                // src={imgBaseURL + userData.data?.photo ?? ""}
-                src={
-                  "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
-                }
-                alt="3x4 img"
-              />
-            </div>
-          </div>
-        </div>
-        {/* end::FOR PDF */}
-
       </div>
     </>
   );
