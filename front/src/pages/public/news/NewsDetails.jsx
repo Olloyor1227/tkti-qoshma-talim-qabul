@@ -16,8 +16,6 @@ export const NewsDetails = () => {
     getterFromTkti(`news/${id}`, news, seNews);
   }, []);
 
-  console.log(news)
-
   if (news.loading)
   return (
     <div className="w-full h-full flex items-center justify-center">

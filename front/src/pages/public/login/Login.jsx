@@ -26,11 +26,11 @@ export function Login() {
       setText(res?.text);
       localStorage.setItem("user", JSON.stringify(res?.data));
       localStorage.setItem("token",res?.token);
-      window.location.reload(false);
+      window.location.reload();
       window.location.href = `/${i18next.language}/cabinet`;
     } else {
       setLoading(false);
-      alert(res?.data)
+      alert(res.message ?? res?.data)
     }
   };
 

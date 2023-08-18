@@ -28,7 +28,7 @@ export const Home = () => {
   if (data.err)
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <h2 className="text-2xl">Server bilan xatolik sodir bo'ldi</h2>
+      <h2 className="text-2xl">{data.err}</h2>
     </div>
   );
   return (

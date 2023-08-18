@@ -66,7 +66,7 @@ export const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:flex justify-evenly hidden">
+            {/* <div className="lg:flex justify-evenly hidden">
               <div className="text-white text-[20px]">
                 <div>
                   <NavLink to={`${i18next.language}/qabul/magistratura`}>
@@ -123,7 +123,7 @@ export const Footer = () => {
                   </NavLink>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <hr />

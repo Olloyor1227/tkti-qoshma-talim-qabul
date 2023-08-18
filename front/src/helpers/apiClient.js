@@ -21,13 +21,9 @@ export class ClientApiService {
 export class ApiClietServices {
   getter = async (url, state, setState) => {
     setState({ ...state, loading: true });
-    const res = await (
-      await fetch(`${baseURL}${url}`, {
-        headers: { "Content-type": "application/json" },
-      })
-    ).json();
+    const res = await this.get(url)
     if (res?.success) setState({ loading: false, data: res?.data, err: "" });
-    else setState({ loading: false, data: [], err: "Server bilan xatolik" });
+    else setState({ loading: false, data: [], err: res.message });
   };
   getterFromTkti = async (url, state, setState) => {
     setState({ ...state, loading: true });

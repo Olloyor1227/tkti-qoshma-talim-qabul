@@ -11,7 +11,7 @@ import {
 import { DropZoneIcon } from "../../../assets/icons";
 
 import { ApiClietServices } from "../../../helpers";
-const { post } = new ApiClietServices();
+const { post, get } = new ApiClietServices();
 
 export function Application() {
   const [file, setFile] = useState(null);
@@ -21,7 +21,7 @@ export function Application() {
   const [direction, setDirection] = useState([]);
 
   const types = ["Kunduzgi", "Kechki", "Sirtqi"];
-  const degrees = ["Bakalavriyat", "Magistratutra"];
+  const degrees = ["Bakalavr", "Magistr"];
   const counteries = ["Latviya", "Turkiya", "Belorusiya", "Ozarbayjon"];
   const languages = ["Ingliz", "Rus", "Ingliz-Turk"];
 
@@ -82,92 +82,155 @@ export function Application() {
     };
   }, [file]);
 
-  useEffect(() => {
-    if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Bakalavriyat" &&
-      eduDetails?.state === "Latviya" &&
-      eduDetails?.edu_lang === "Ingliz"
-    )
-      setDirection([
-        "Oziq-ovqat texnologiyasi (mahsulot turlari bo'yicha)",
-        "Iqtisodiyot (tarmoqlar va sohalar bo'yicha)",
-      ]);
-    else if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Bakalavriyat" &&
-      eduDetails?.state === "Turkiya" &&
-      eduDetails?.edu_lang === "Ingliz-Turk"
-    )
-      setDirection([
-        "Texnologik jarayonlarni boshqarishning axborot – kommunikasiya tizimlari",
-      ]);
-    else if (
-      eduDetails?.edu_type === "Sirtqi" &&
-      eduDetails?.edu_degree === "Bakalavriyat" &&
-      eduDetails?.state === "Belorusiya" &&
-      eduDetails?.edu_lang === "Rus"
-    )
-      setDirection([
-        "Oziq-ovqat texnologiyasi (don mahsulotlari)",
-        "Kimyoviy texnologiya (ishlab chiqarish turlari bo'yicha)",
-      ]);
-    else if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Bakalavriyat" &&
-      eduDetails?.state === "Belorusiya" &&
-      eduDetails?.edu_lang === "Rus"
-    )
-      setDirection([
-        "Texnologik mashinalar va jihozlar (tarmoqlar bo'yicha)",
-        "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish va boshqarish (tarmoqlar bo'yicha)",
-        "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
-        "Menejment (kimyo va oziq-ovqat sanoati)",
-      ]);
-    else if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Magistratutra" &&
-      eduDetails?.state === "Latviya" &&
-      eduDetails?.edu_lang === "Ingliz"
-    )
-      setDirection([
-        "Biznesni boshqarish (Master of Business Administration-MBA)",
-        "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
-        "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
-        "Menejment (kimyo va oziq-ovqat sanoati)",
-      ]);
-    else if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Magistratutra" &&
-      eduDetails?.state === "Turkiya" &&
-      eduDetails?.edu_lang === "Ingliz-Turk"
-    )
-      setDirection([
-        "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish (tarmoqlar bo'yicha)",
-      ]);
-    else if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Magistratutra" &&
-      eduDetails?.state === "Ozarbayjon" &&
-      eduDetails?.edu_lang === "Ingliz"
-    )
-      setDirection(["Kimyoviy va neft-gazkimyoviy texnologiyalar"]);
-    else if (
-      eduDetails?.edu_type === "Kunduzgi" &&
-      eduDetails?.edu_degree === "Magistratutra" &&
-      eduDetails?.state === "Belorusiya" &&
-      eduDetails?.edu_lang === "Rus"
-    )
-      setDirection([
-        "Menejment (tarmoqlar va sohalar)",
-        "Marketing (tarmoqlar va sohalar)",
-        "Kimyoviy texnologiya jarayonlari va apparatlari (ishlab chiqarish turi bo'yicha)",
-        "Yog'ochga ishlov berish texnologiyasi va yog'ochshunoslik",
-        "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
-        "Atrof muhit muhofazasi (tarmoqlar va sohalar bo'yicha)",
-      ]);
-    else setDirection([]);
-  }, [eduDetails]);
+  // useEffect(() => {
+  //   if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Bakalavriyat" &&
+  //     eduDetails?.state === "Latviya" &&
+  //     eduDetails?.edu_lang === "Ingliz"
+  //   )
+  //     setDirection([
+  //       "Oziq-ovqat texnologiyasi (mahsulot turlari bo'yicha)",
+  //       "Iqtisodiyot (tarmoqlar va sohalar bo'yicha)",
+  //     ]);
+  //   else if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Bakalavriyat" &&
+  //     eduDetails?.state === "Turkiya" &&
+  //     eduDetails?.edu_lang === "Ingliz-Turk"
+  //   )
+  //     setDirection([
+  //       "Texnologik jarayonlarni boshqarishning axborot – kommunikasiya tizimlari",
+  //     ]);
+  //   else if (
+  //     eduDetails?.edu_type === "Sirtqi" &&
+  //     eduDetails?.edu_degree === "Bakalavriyat" &&
+  //     eduDetails?.state === "Belorusiya" &&
+  //     eduDetails?.edu_lang === "Rus"
+  //   )
+  //     setDirection([
+  //       "Oziq-ovqat texnologiyasi (don mahsulotlari)",
+  //       "Kimyoviy texnologiya (ishlab chiqarish turlari bo'yicha)",
+  //     ]);
+  //   else if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Bakalavriyat" &&
+  //     eduDetails?.state === "Belorusiya" &&
+  //     eduDetails?.edu_lang === "Rus"
+  //   )
+  //     setDirection([
+  //       "Texnologik mashinalar va jihozlar (tarmoqlar bo'yicha)",
+  //       "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish va boshqarish (tarmoqlar bo'yicha)",
+  //       "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
+  //       "Menejment (kimyo va oziq-ovqat sanoati)",
+  //     ]);
+  //   else if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Magistratutra" &&
+  //     eduDetails?.state === "Latviya" &&
+  //     eduDetails?.edu_lang === "Ingliz"
+  //   )
+  //     setDirection([
+  //       "Biznesni boshqarish (Master of Business Administration-MBA)",
+  //       "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
+  //       "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
+  //       "Menejment (kimyo va oziq-ovqat sanoati)",
+  //     ]);
+  //   else if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Magistratutra" &&
+  //     eduDetails?.state === "Turkiya" &&
+  //     eduDetails?.edu_lang === "Ingliz-Turk"
+  //   )
+  //     setDirection([
+  //       "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish (tarmoqlar bo'yicha)",
+  //     ]);
+  //   else if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Magistratutra" &&
+  //     eduDetails?.state === "Ozarbayjon" &&
+  //     eduDetails?.edu_lang === "Ingliz"
+  //   )
+  //     setDirection(["Kimyoviy va neft-gazkimyoviy texnologiyalar"]);
+  //   else if (
+  //     eduDetails?.edu_type === "Kunduzgi" &&
+  //     eduDetails?.edu_degree === "Magistratutra" &&
+  //     eduDetails?.state === "Belorusiya" &&
+  //     eduDetails?.edu_lang === "Rus"
+  //   )
+  //     setDirection([
+  //       "Menejment (tarmoqlar va sohalar)",
+  //       "Marketing (tarmoqlar va sohalar)",
+  //       "Kimyoviy texnologiya jarayonlari va apparatlari (ishlab chiqarish turi bo'yicha)",
+  //       "Yog'ochga ishlov berish texnologiyasi va yog'ochshunoslik",
+  //       "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
+  //       "Atrof muhit muhofazasi (tarmoqlar va sohalar bo'yicha)",
+  //     ]);
+  //   else setDirection([]);
+  // }, [eduDetails]);
+
+  const getByParams = async (params) => {
+    const res = get(`filter/filter?${params}`)
+    return await res
+  }
+
+  const [ eduType, setEduType ] = useState([])
+  const [ eduLang, setEduLang ] = useState([])
+  const [ eduState, setEduState ] = useState([])
+  const [ eduUniver, setEduUniver ] = useState([])
+  const [ eduDirectoin, setEduDirectoin ] = useState([])
+  
+  const [ eduDatas, setEduDatas ] = useState({})
+
+  const getTypes = async (value) =>{
+    const res = await getByParams(`talim_darajasi=${value}`)
+    const newArr = res.data?.map((i) => i.talim_turi)
+    setEduType(Array.from(new Set(newArr)));
+    setEduDatas({
+      ...eduDatas, 
+      degree: {isSelected: true, value: value}
+    })
+  }
+
+  const getLang = async (value) =>{
+    const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${value}`)
+    const newArr = res.data?.map((i) => i.talim_tili);
+    setEduLang(Array.from(new Set(newArr)));
+    setEduDatas({
+      ...eduDatas, 
+      type: {isSelected: true, value: value}
+    })
+  }
+
+  const getState = async (value) =>{
+    const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${eduDatas?.type?.value}&talim_tili=${value}`)
+    const newArr = res.data?.map((i) => i.davlat);
+    setEduState(Array.from(new Set(newArr)));
+    setEduDatas({
+      ...eduDatas, 
+      lang: {isSelected: true, value: value}
+    })
+  }
+
+  const getUniver = async (value) =>{
+    const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${eduDatas?.type?.value}&talim_tili=${eduDatas?.lang?.value}&davlat=${value}`)
+    const newArr = res.data?.map((i) => i.universitet);
+    setEduUniver(Array.from(new Set(newArr)));
+    setEduDatas({
+      ...eduDatas, 
+      state: {isSelected: true, value: value}
+    })
+  }
+
+  const getDirection = async (value) =>{
+    const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${eduDatas?.type?.value}&talim_tili=${eduDatas?.lang?.value}&davlat=${eduDatas?.state?.value}&universitet=${value}`)
+    const newArr = res.data?.map((i) => i.yonalish);
+    setEduDirectoin(Array.from(new Set(newArr)));
+    setEduDatas({
+      ...eduDatas, 
+      univer: {isSelected: true, value: value}
+    })
+  }
 
   return (
     <div className="container mx-auto w-[90%] py-10 relative">
@@ -345,7 +408,7 @@ export function Application() {
             {/* COMPLATED EDU */}
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="complated_edu" value="Tugatgan OTM" />
+                <Label htmlFor="complated_edu" value="Tugatgan ta'lim muassasasi" />
               </div>
               <TextInput
                 name="complated_edu"
@@ -354,29 +417,6 @@ export function Application() {
                 shadow
                 type="text"
               />
-            </div>
-
-            {/* EDU TYPE */}
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="edu_type" value="Talim turi" />
-              </div>
-              <Select
-                id="edu_type"
-                required
-                shadow
-                name="edu_type"
-                onChange={handleSelect}
-              >
-                <option value="" hidden>
-                  ...
-                </option>
-                {types.map((item, id) => (
-                  <option key={id} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </Select>
             </div>
 
             {/* EDU DEGREE */}
@@ -389,9 +429,9 @@ export function Application() {
                 required
                 shadow
                 name="edu_degree"
-                onChange={handleSelect}
+                onChange={(e) => getTypes(e.target.value)}
               >
-                <option value="" hidden>
+                <option value="">
                   ...
                 </option>
                 {degrees.map((item, id) => (
@@ -402,22 +442,23 @@ export function Application() {
               </Select>
             </div>
 
-            {/* STATE */}
+            {/* EDU TYPE */}
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="state" value="Davlat" />
+                <Label htmlFor="edu_type" value="Talim turi" />
               </div>
               <Select
-                id="state"
+                id="edu_type"
                 required
                 shadow
-                name="state"
-                onChange={handleSelect}
+                disabled={!eduDatas?.degree?.isSelected}
+                name="edu_type"
+                onChange={(e) => getLang(e.target.value)}
               >
-                <option value="" hidden>
+                <option value="">
                   ...
                 </option>
-                {counteries.map((item, id) => (
+                {eduType.map((item, id) => (
                   <option key={id} value={item}>
                     {item}
                   </option>
@@ -435,12 +476,13 @@ export function Application() {
                 required
                 shadow
                 name="edu_lang"
-                onChange={handleSelect}
+                disabled={!eduDatas?.type?.isSelected}
+                onChange={(e) => getState(e.target.value)}
               >
-                <option value="" hidden>
+                <option value="">
                   ...
                 </option>
-                {languages.map((item, id) => (
+                {eduLang.map((item, id) => (
                   <option key={id} value={item}>
                     {item}
                   </option>
@@ -448,14 +490,68 @@ export function Application() {
               </Select>
             </div>
 
-            {/* FACULTY */}
+            {/* STATE */}
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="faculty" value="Fakultet" />
+                <Label htmlFor="state" value="Davlat" />
               </div>
-              <Select id="faculty" required shadow name="faculty">
+              <Select
+                id="state"
+                required
+                shadow
+                name="state"
+                disabled={!eduDatas?.lang?.isSelected}
+                onChange={(e) => getUniver(e.target.value)}
+              >
+                <option value="">
+                  ...
+                </option>
+                {eduState.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            {/* UNIVERSITET */}
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="state" value="Universitet" />
+              </div>
+              <Select
+                id="state"
+                required
+                shadow
+                name="state"
+                disabled={!eduDatas?.state?.isSelected}
+                onChange={(e) => getDirection(e.target.value)}
+              >
+                <option value="">
+                  ...
+                </option>
+                {eduUniver.map((item, id) => (
+                  <option key={id} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            {/* DIRECTION */}
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="faculty" value="Ta'lim yo'nalishi" />
+              </div>
+              <Select 
+                id="faculty" 
+                required 
+                shadow 
+                name="faculty"
+                disabled={!eduDatas?.univer?.isSelected}
+              >
                 <option value="">...</option>
-                {direction.map((item, id) => (
+                {eduDirectoin.map((item, id) => (
                   <option key={id} value={item}>
                     {item}
                   </option>
