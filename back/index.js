@@ -19,6 +19,8 @@ mongoose
     console.log("error");
   });
 
+app.use("/api/auth", require("./router/adminRoutes"));
+app.use("/api/filter", require("./router/filterRoutes"));
 app.use("/api/user", require("./router/userroutes"));
 app.use("/api/news", require("./router/YangilikRoutes"));
 app.use("/api/banner", require("./constroller/banner/route"));
