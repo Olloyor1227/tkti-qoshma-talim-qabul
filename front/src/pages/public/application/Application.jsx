@@ -21,7 +21,7 @@ export function Application() {
   const [direction, setDirection] = useState([]);
 
   const types = ["Kunduzgi", "Kechki", "Sirtqi"];
-  const degrees = ["Bakalavr", "Magistr"];
+  const degrees = ["Bakalavriyat", "Magistratura"];
   const counteries = ["Latviya", "Turkiya", "Belorusiya", "Ozarbayjon"];
   const languages = ["Ingliz", "Rus", "Ingliz-Turk"];
 
