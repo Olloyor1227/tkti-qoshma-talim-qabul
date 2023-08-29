@@ -25,7 +25,7 @@ i18n
   .use(HttpApi)
   .init({
     resources,
-    supportedLngs: ["en", "ru", "uz"],
+    supportedLngs: ["uz", "ru", "en"],
     fallbackLng: "uz",
     detection: {
       order: [

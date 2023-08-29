@@ -134,10 +134,10 @@ export const UserCabinet = () => {
               <div className="w-52 h-52">
                 <img
                   className="w-full h-full object-cover"
-                  // src={imgBaseURL + userData.data?.photo ?? ""}
-                  src={
-                    "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
-                  }
+                  src={imgBaseURL + userData.data?.photo ?? ""}
+                  // src={
+                  //   "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
+                  // }
                   alt="3x4 img"
                 />
               </div>
@@ -228,10 +228,10 @@ export const UserCabinet = () => {
               <div className="w-full h-36">
                 <img
                   className="w-full h-full object-cover"
-                  // src={imgBaseURL + userData.data?.photo ?? ""}
-                  src={
-                    "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
-                  }
+                  src={imgBaseURL + userData.data?.photo ?? ""}
+                  // src={
+                  //   "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
+                  // }
                   alt="3x4 img"
                 />
               </div>
@@ -349,7 +349,7 @@ export const UserCabinet = () => {
               <p className="flex flex-col">
                 {" "}
                 <span className="text-gray-400">
-                  Passport amal qilish muddati
+                  Passport berlgan sana
                 </span>{" "}
                 <b>{userData.data?.passport_dob}</b>{" "}
               </p>
