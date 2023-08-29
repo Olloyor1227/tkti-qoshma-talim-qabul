@@ -23,14 +23,9 @@ export const Footer = () => {
         <div className="container mx-auto w-[90%] my-[40px]">
           <div className="container  flex justify-between  items-center ">
             <div className="">
-              <Link to="/" >
-                <img
-                  src={logo}
-                  alt=""
-                  width={"80"}
-                  height={"20"}
-                  className="mb-10"
-                />
+              <Link to="/" className="flex items-center gap-3 mb-4">
+                <img src={logo} alt="" width={"60"} height={"15"} className="" />
+                <p className="uppercase text-center text-white">tkti qoshma  <br /> ta'lim</p>
               </Link>
               <div className="flex gap-4    items-end justify-between ">
                 <div className="lg:flex lg:flex-col flex-row-reverse   max-md:flex-col max-md:gap-10 ">
@@ -66,69 +61,11 @@ export const Footer = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="lg:flex justify-evenly hidden">
-              <div className="text-white text-[20px]">
-                <div>
-                  <NavLink to={`${i18next.language}/qabul/magistratura`}>
-                    <span className="mx-3">{t("Qabul.1.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}//qabul/bakalavr`}>
-                    <span className="mx-3">{t("Qabul.0.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}/qabul/doktorantura`}>
-                    <span className="mx-3">{t("Qabul.2.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}/qabul/qo-shma-ta-lim`}>
-                    <span className="mx-3">{t("Qabul.3.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}/institut/structure`}>
-                    <span className="mx-3">{t("Institute.3.name")}</span>
-                  </NavLink>
-                </div>
-              </div>
-              <div className="text-white text-[20px]">
-                <div>
-                  <NavLink to={`${i18next.language}/institut/biz-haqimiqda`}>
-                    <span className="mx-3">{t("Institute.1.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}/institut/ish-reja`}>
-                    <span className="mx-3">{t("Institute.5.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}/institut/korrupsiya`}>
-                    <span className="mx-3">{t("Institute.6.name")}</span>
-                  </NavLink>
-                </div>
-
-                <div>
-                  <NavLink to={`${i18next.language}/institut/bog'nalish`}>
-                    <span className="mx-3">{t("Institute.9.name")}</span>
-                  </NavLink>
-                </div>
-              </div>
-            </div> */}
           </div>
 
           <hr />
           <div className="text-white  flex justify-center my-3 text-xl">
-            {t("ContactUs.2.manzil")}
+            Navoiy ko’chasi, 32-uy, Toshkent, O'zbekiston, 100011
           </div>
         </div>
       </footer>

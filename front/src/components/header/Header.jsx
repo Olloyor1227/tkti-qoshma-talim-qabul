@@ -32,33 +32,31 @@ export const Header = () => {
     i18next.changeLanguage(code);
   };
 
-  const userNameFirstLatter = JSON.parse(localStorage.getItem("user"))?.name?.slice(0,1)
+  const userNameFirstLatter = JSON.parse(localStorage.getItem("user"))?.name?.slice(0, 1)
 
   return (
     <header
       className={`py-4 top-0 w-full z-10 text-white transition-opacity bg-[#26597E]`}
     >
       <div className="flex items-center justify-between container mx-auto w-[90%]">
-        <div className="w-1/6">
-          <Link to="/">
-            <img src={logo} alt="" width={"80"} height={"15"} className="" />
-          </Link>
-        </div>
+        <Link to="/" className="w-1/6 flex items-center gap-3">
+          <img src={logo} alt="" width={"60"} height={"15"} className="" />
+          <p className="uppercase text-center">tkti qoshma  <br /> ta'lim</p>
+        </Link>
         <div
-          className={`w-4/6 xl:flex justify-end gap-10 ${
-            isOpen.hamburger
-              ? "xl:static absolute top-0 left-0 max-xl:w-full max-xl:h-screen xl:bg-inherit bg-[rgba(0,0,0,0.96)] max-xl:flex max-xl:flex-col max-xl:justify-start max-xl:pt-24"
-              : "hidden"
-          }`}
+          className={`w-4/6 xl:flex justify-end gap-10 ${isOpen.hamburger
+            ? "xl:static fixed top-0 left-0 max-xl:w-full max-xl:h-screen xl:bg-inherit bg-[rgba(0,0,0,0.96)] max-xl:flex max-xl:flex-col max-xl:justify-start max-xl:pt-24"
+            : "hidden"
+            }`}
         >
           <Link
             to="/"
             className="max-xl:block hidden pl-14 -mt-16 mb-14"
             onClick={() => toggleHamburger()}
           >
-            <img src={logo} alt="" width={"150"} height={"20"} className="" />
+            <img src={logo} alt="" width={"60"} height={"20"} className="" />
           </Link>
-          
+
           {headerItems(authState).map((item) => (
             <Link
               key={item.name}
@@ -70,7 +68,7 @@ export const Header = () => {
             </Link>
           ))}
 
-          <div className="max-xl:flex gap-4 hidden pl-14 mt-8">
+          {/* <div className="max-xl:flex gap-4 hidden pl-14 mt-8">
             {language.map((item) => (
               <button
                 key={item.code}
@@ -83,9 +81,9 @@ export const Header = () => {
                 {item.name}
               </button>
             ))}
-          </div>
+          </div> */}
         </div>
-        
+
         <div className="flex items-center justify-end gap-3">
           {/* <div
             className="items-center gap-3 text-white ml-10 p-2.5 rounded cursor-pointer xl:flex hidden relative"

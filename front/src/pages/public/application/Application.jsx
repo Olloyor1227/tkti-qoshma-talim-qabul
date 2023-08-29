@@ -8,7 +8,7 @@ import {
   Select,
 } from "flowbite-react";
 
-import { DropZoneIcon } from "../../../assets/icons";
+import { DropZoneIcon, EditIcon } from "../../../assets/icons";
 
 import { ApiClietServices } from "../../../helpers";
 const { post, get } = new ApiClietServices();
@@ -55,10 +55,6 @@ export function Application() {
       setData({ loading: false, msg: res?.message });
       alert(res?.message);
     }
-
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
   };
 
   useEffect(() => {
@@ -82,153 +78,66 @@ export function Application() {
     };
   }, [file]);
 
-  // useEffect(() => {
-  //   if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Bakalavriyat" &&
-  //     eduDetails?.state === "Latviya" &&
-  //     eduDetails?.edu_lang === "Ingliz"
-  //   )
-  //     setDirection([
-  //       "Oziq-ovqat texnologiyasi (mahsulot turlari bo'yicha)",
-  //       "Iqtisodiyot (tarmoqlar va sohalar bo'yicha)",
-  //     ]);
-  //   else if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Bakalavriyat" &&
-  //     eduDetails?.state === "Turkiya" &&
-  //     eduDetails?.edu_lang === "Ingliz-Turk"
-  //   )
-  //     setDirection([
-  //       "Texnologik jarayonlarni boshqarishning axborot – kommunikasiya tizimlari",
-  //     ]);
-  //   else if (
-  //     eduDetails?.edu_type === "Sirtqi" &&
-  //     eduDetails?.edu_degree === "Bakalavriyat" &&
-  //     eduDetails?.state === "Belorusiya" &&
-  //     eduDetails?.edu_lang === "Rus"
-  //   )
-  //     setDirection([
-  //       "Oziq-ovqat texnologiyasi (don mahsulotlari)",
-  //       "Kimyoviy texnologiya (ishlab chiqarish turlari bo'yicha)",
-  //     ]);
-  //   else if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Bakalavriyat" &&
-  //     eduDetails?.state === "Belorusiya" &&
-  //     eduDetails?.edu_lang === "Rus"
-  //   )
-  //     setDirection([
-  //       "Texnologik mashinalar va jihozlar (tarmoqlar bo'yicha)",
-  //       "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish va boshqarish (tarmoqlar bo'yicha)",
-  //       "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
-  //       "Menejment (kimyo va oziq-ovqat sanoati)",
-  //     ]);
-  //   else if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Magistratutra" &&
-  //     eduDetails?.state === "Latviya" &&
-  //     eduDetails?.edu_lang === "Ingliz"
-  //   )
-  //     setDirection([
-  //       "Biznesni boshqarish (Master of Business Administration-MBA)",
-  //       "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
-  //       "Biotexnologiya (oziq-ovqat, ozuqa, kimyoviy mahsulotlar va qishloq xo'jaligi)",
-  //       "Menejment (kimyo va oziq-ovqat sanoati)",
-  //     ]);
-  //   else if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Magistratutra" &&
-  //     eduDetails?.state === "Turkiya" &&
-  //     eduDetails?.edu_lang === "Ingliz-Turk"
-  //   )
-  //     setDirection([
-  //       "Texnologik jarayonlar va ishlab chiqarishni avtomatlashtirish (tarmoqlar bo'yicha)",
-  //     ]);
-  //   else if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Magistratutra" &&
-  //     eduDetails?.state === "Ozarbayjon" &&
-  //     eduDetails?.edu_lang === "Ingliz"
-  //   )
-  //     setDirection(["Kimyoviy va neft-gazkimyoviy texnologiyalar"]);
-  //   else if (
-  //     eduDetails?.edu_type === "Kunduzgi" &&
-  //     eduDetails?.edu_degree === "Magistratutra" &&
-  //     eduDetails?.state === "Belorusiya" &&
-  //     eduDetails?.edu_lang === "Rus"
-  //   )
-  //     setDirection([
-  //       "Menejment (tarmoqlar va sohalar)",
-  //       "Marketing (tarmoqlar va sohalar)",
-  //       "Kimyoviy texnologiya jarayonlari va apparatlari (ishlab chiqarish turi bo'yicha)",
-  //       "Yog'ochga ishlov berish texnologiyasi va yog'ochshunoslik",
-  //       "Oziq-ovqat mahsulotlarini ishlab chiqarish va qayta ishlash texnologiyasi (mahsulot turlari bo'yicha)",
-  //       "Atrof muhit muhofazasi (tarmoqlar va sohalar bo'yicha)",
-  //     ]);
-  //   else setDirection([]);
-  // }, [eduDetails]);
-
   const getByParams = async (params) => {
     const res = get(`filter/filter?${params}`)
     return await res
   }
 
-  const [ eduType, setEduType ] = useState([])
-  const [ eduLang, setEduLang ] = useState([])
-  const [ eduState, setEduState ] = useState([])
-  const [ eduUniver, setEduUniver ] = useState([])
-  const [ eduDirectoin, setEduDirectoin ] = useState([])
-  
-  const [ eduDatas, setEduDatas ] = useState({})
+  const [eduType, setEduType] = useState([])
+  const [eduLang, setEduLang] = useState([])
+  const [eduState, setEduState] = useState([])
+  const [eduUniver, setEduUniver] = useState([])
+  const [eduDirectoin, setEduDirectoin] = useState([])
 
-  const getTypes = async (value) =>{
+  const [eduDatas, setEduDatas] = useState({})
+
+  const getTypes = async (value) => {
     const res = await getByParams(`talim_darajasi=${value}`)
     const newArr = res.data?.map((i) => i.talim_turi)
     setEduType(Array.from(new Set(newArr)));
     setEduDatas({
-      ...eduDatas, 
-      degree: {isSelected: true, value: value}
+      ...eduDatas,
+      degree: { isSelected: true, value: value }
     })
   }
 
-  const getLang = async (value) =>{
+  const getLang = async (value) => {
     const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${value}`)
     const newArr = res.data?.map((i) => i.talim_tili);
     setEduLang(Array.from(new Set(newArr)));
     setEduDatas({
-      ...eduDatas, 
-      type: {isSelected: true, value: value}
+      ...eduDatas,
+      type: { isSelected: true, value: value }
     })
   }
 
-  const getState = async (value) =>{
+  const getState = async (value) => {
     const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${eduDatas?.type?.value}&talim_tili=${value}`)
     const newArr = res.data?.map((i) => i.davlat);
     setEduState(Array.from(new Set(newArr)));
     setEduDatas({
-      ...eduDatas, 
-      lang: {isSelected: true, value: value}
+      ...eduDatas,
+      lang: { isSelected: true, value: value }
     })
   }
 
-  const getUniver = async (value) =>{
+  const getUniver = async (value) => {
     const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${eduDatas?.type?.value}&talim_tili=${eduDatas?.lang?.value}&davlat=${value}`)
     const newArr = res.data?.map((i) => i.universitet);
     setEduUniver(Array.from(new Set(newArr)));
     setEduDatas({
-      ...eduDatas, 
-      state: {isSelected: true, value: value}
+      ...eduDatas,
+      state: { isSelected: true, value: value }
     })
   }
 
-  const getDirection = async (value) =>{
+  const getDirection = async (value) => {
     const res = await getByParams(`talim_darajasi=${eduDatas?.degree?.value}&talim_turi=${eduDatas?.type?.value}&talim_tili=${eduDatas?.lang?.value}&davlat=${eduDatas?.state?.value}&universitet=${value}`)
     const newArr = res.data?.map((i) => i.yonalish);
     setEduDirectoin(Array.from(new Set(newArr)));
     setEduDatas({
-      ...eduDatas, 
-      univer: {isSelected: true, value: value}
+      ...eduDatas,
+      univer: { isSelected: true, value: value }
     })
   }
 
@@ -543,10 +452,10 @@ export function Application() {
               <div className="mb-2 block">
                 <Label htmlFor="faculty" value="Ta'lim yo'nalishi" />
               </div>
-              <Select 
-                id="faculty" 
-                required 
-                shadow 
+              <Select
+                id="faculty"
+                required
+                shadow
                 name="faculty"
                 disabled={!eduDatas?.univer?.isSelected}
               >
@@ -562,15 +471,13 @@ export function Application() {
             {/* IMAGE */}
             <div>
               {fileDataURL ? (
-                <p className="img-preview-wrapper">
-                  {<img src={fileDataURL} alt="preview" />}
-                </p>
+                <div className="img-preview-wrapper relative">
+                  <img src={fileDataURL} alt="preview" className="border rounded" />
+                  <button type="button" className="bg-white p-4 flex items-center justify-center absolute bottom-0 right-0 border" onClick={() => {setFileDataURL(null); setFile(null)} }><EditIcon /></button>
+                </div>
               ) : null}
               <div
-                className={`flex items-center justify-center w-full ${
-                  fileDataURL ? "hidden" : ""
-                }`}
-              >
+                className={`flex items-center justify-center w-full ${fileDataURL ? "hidden" : ""}`}>
                 <label
                   for="dropzone-file"
                   className="flex flex-col items-center justify-center w-full h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"

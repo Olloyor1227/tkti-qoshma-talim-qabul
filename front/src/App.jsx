@@ -7,6 +7,7 @@ import { PrivateRoute } from "./components";
 
 import { useAppContext } from "./context/app.context"
 import { ApiClietServices } from "./helpers"
+import i18next from "i18next";
 const { post } = new ApiClietServices();
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
     } else {
     }
   }, [user]);
+
+  useEffect(() => {
+    i18next.changeLanguage("uz")
+  }, [])
 
   return (
       <Routes>
