@@ -1,8 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Spinner, Modal, Label, FileInput, Button } from "flowbite-react";
+import {
+  Spinner,
+  Modal,
+  Label,
+  FileInput,
+  Button,
+  Alert,
+} from "flowbite-react";
 import { jsPDF } from "jspdf";
+import copy from "copy-to-clipboard";
 import i18next from "i18next";
+
+import logo from "../../../assets/images/copy.png";
 
 import { useAppContext } from "../../../context/app.context";
 import { ApiClietServices, imgBaseURL } from "../../../helpers";
@@ -21,6 +31,8 @@ export const UserCabinet = () => {
   });
   const [modal, setModal] = useState(false);
   const [pdfFile, setPdfFile] = useState(false);
+  const [alertMsg, setAlertMsg] = useState(false);
+  const [userInfo, setUserInfo] = useState(false);
 
   const payForApplication = (e) => {
     e.preventDefault();
@@ -71,6 +83,14 @@ export const UserCabinet = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    const temp = setTimeout(() => {
+      setAlertMsg(false);
+    }, 2000);
+
+    return () => clearTimeout(temp);
+  }, [alertMsg]);
+
   const handleGeneratePdf = () => {
     const doc = new jsPDF("p", "pt", "a4", true);
 
@@ -97,6 +117,7 @@ export const UserCabinet = () => {
     );
   return (
     <>
+      {/* UPLOAD PAID FILE MODAL */}
       <Modal dismissible show={modal} onClose={() => setModal(false)}>
         <Modal.Header>Arizani faollashtirish</Modal.Header>
         <Modal.Body>
@@ -125,6 +146,7 @@ export const UserCabinet = () => {
         </Modal.Body>
       </Modal>
 
+      {/* PDF DUCUMENT MODAL */}
       <Modal dismissible show={pdfFile} onClick={() => setPdfFile(false)}>
         <Modal.Body>
           {/* begin::FOR PDF */}
@@ -280,21 +302,56 @@ export const UserCabinet = () => {
             </Button>
           )}
         </div>
-        <div className="flex gap-20 items-start  max-md:flex-col">
+        <div className="flex gap-20 items-start max-md:flex-col">
           {/* Img and status section */}
-          <div className="w-72 h-44">
-            <img
-              className="w-full h-full object-cover"
-              src={imgBaseURL + userData.data?.photo ?? ""}
-              alt="3x4 img"
-            />
-            <span
-              className={`rounded-lg px-6 py-2 text-white ${
-                userData.data.paid_file ? "bg-green-500" : "bg-red-600"
-              }`}
+          <div className="">
+            <div className="w-44 h-56 border shadow-sm relative">
+              <img
+                className="w-full h-full object-cover"
+                src={imgBaseURL + userData.data?.photo ?? ""}
+                alt="3x4 img"
+              />
+              <span
+                className={`absolute -bottom-1 left-0 rounded-lg px-4 py-1 text-white text-[13px] ${
+                  userData.data.paid_file ? "bg-green-500" : "bg-red-600"
+                }`}
+              >
+                {userData.data.paid_file ? "Faol" : "Nofaol"}
+              </span>
+            </div>
+            <p className="mt-7 text-gray-400 mb-2">
+              To'lov qilish uchun hisob raqam
+            </p>
+            <div className="relative border-2 rounded-lg p-3">
+              <b className="">4001 1086 0262 7770 9410 0079 002</b>
+              <button
+                className="absolute -right-2 -top-3"
+                onClick={() => {
+                  copy("4001 1086 0262 7770 9410 0079 002");
+                  setAlertMsg(true);
+                }}
+              >
+                <img src={logo} alt="" />
+              </button>
+            </div>
+            <p
+              className={`${
+                alertMsg ? "opacity-1" : "opacity-0"
+              } duration-150 p-2 bg-green-300 text-center text-white my-3`}
             >
-              {userData.data.paid_file ? "Faol" : "Nofaol"}
-            </span>
+              Nusxalandi
+            </p>
+            <Alert color="failure" className="w-72">
+              <span>
+                <p>
+                  <p className="font-medium mb-1 text-lg">Ogohlantirish</p>
+                  <br />
+                  Yuqoridagi hisob raqamga to'lov qilgandan so'ng <br />
+                  to'lov chekini <b>Faollashtirish</b> tugmasini bosish
+                  orqali platformaga yuklang
+                </p>
+              </span>
+            </Alert>
           </div>
 
           {/* User details info section */}

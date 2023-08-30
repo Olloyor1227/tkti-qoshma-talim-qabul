@@ -51,7 +51,7 @@ export const Footer = () => {
                   </div>
                   <div className="flex items-center gap-2 my-3">
                     <PhoneIcon />
-                    <span className="text-white"> + 998 71 244 79 17</span>
+                    <span className="text-white"> + 998 97 997 90 93</span>
                   </div>
 
                   <div className="flex items-center gap-2 my-3">
