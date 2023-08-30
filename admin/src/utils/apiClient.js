@@ -54,6 +54,23 @@ export class ClientApiService {
     });
   }
 
+  patch(url, data, type) {
+    const headers = {
+      "Content-type": "application/json",
+      Token: localStorage.getItem("token"),
+    };
+    const headersSecond = {
+      Token: localStorage.getItem("token"),
+    };
+    const method = "PATCH";
+
+    return fetchApi(url, {
+      method: method,
+      headers: type ? headersSecond : headers,
+      body: data,
+    });
+  }
+
   deleteData(url) {
     const headers = {
       "Content-type": "application/json",

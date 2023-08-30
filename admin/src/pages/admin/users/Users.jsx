@@ -9,10 +9,11 @@ import {
   Pagination,
 } from "../../../components";
 import { DeleteIcon, EditIcon } from "../../../assets/icons";
+import reloadIcon from "../../../assets/images/reload.png";
 
 import { ClientApiService } from "../../../utils/apiClient";
 import { imgBaseURL } from "../../../utils/http";
-const { deleteData, get, update } = new ClientApiService();
+const { deleteData, get, patch } = new ClientApiService();
 
 const getter = async (state, setState, page = 1) => {
   setState({ ...state, loading: true });
@@ -32,6 +33,7 @@ const Users = () => {
   const [onEdit, setOnEdit] = useState("");
   const [news1, setNews1] = useState({});
   const [search, setSearch] = useState("");
+  const [invalidPaymentModal, setInvalidPaymentModal] = useState(false);
 
   const [state, setstate] = useState({
     totalPages: 3,
@@ -67,6 +69,33 @@ const Users = () => {
     "Status",
     "Amallar",
   ];
+
+  const payForApplication = (e) => {
+    e.preventDefault()
+
+    const data = { ...onEdit?.obj };
+    delete data.__v;
+    delete data._id;
+    delete data.updatedAt;
+    delete data.createdAt;
+    delete data.paid_file;
+
+    const frData = new FormData();
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const value = data[key];
+        frData.append(key, value);
+      }
+    }
+    frData.append("file", e.target.replace_invalid_paid_file.files[0]);
+
+    patch(`application/${onEdit?.obj?._id}`, frData, true)
+      .then((res) => {
+        alert(res?.message);
+        location.reload();
+      })
+      .catch((err) => console.log(err, "err"));
+  };
   const renderHead = (item, index) => <th key={index}>{item}</th>;
   const renderBody = (item, index) => {
     return (
@@ -169,6 +198,22 @@ const Users = () => {
     : (content = null);
   return (
     <div>
+      {invalidPaymentModal ? (
+        <ModalWrapper
+          classNames={"z-[999] flex items-center justify-center"}
+          modalClose={() => setInvalidPaymentModal(false)}
+        >
+          <form className="bg-white p-5 shadow-2xl" onSubmit={payForApplication}>
+            <div className="mb-5 flex flex-col gap-2">
+              <label htmlFor="replace_invalid_paid_file">
+                To'g'ri bo'lgan to'lov faylini tanlang
+              </label>
+              <input type="file" id="replace_invalid_paid_file" name="replace_invalid_paid_file"/>
+            </div>
+            <button className="p-2 bg-green-400 text-white">Yuklash</button>
+          </form>
+        </ModalWrapper>
+      ) : null}
       {onEdit.open && (
         <ModalWrapper modalClose={() => setOnEdit({ open: false })}>
           <div>
@@ -300,15 +345,21 @@ const Users = () => {
                     </p>
                   </div>
                   {onEdit.obj?.paid_file ? (
-                    <div className="w-full h-auto">
+                    <div className="w-full h-auto relative">
                       <h1 className="text-gray-400 mb-2">
                         To'lov kvitansiyasi
                       </h1>
                       <img
                         className="object-cover"
-                        src={imgBaseURL + onEdit.obj?.photo ?? ""}
+                        src={imgBaseURL + onEdit.obj?.paid_file ?? ""}
                         alt="Paid check img"
                       />
+                      <button
+                        className="flex items-center justify-center absolute top-0 right-0"
+                        onClick={() => setInvalidPaymentModal(true)}
+                      >
+                        <img src={reloadIcon} alt="reload" />
+                      </button>
                     </div>
                   ) : null}
                 </div>
