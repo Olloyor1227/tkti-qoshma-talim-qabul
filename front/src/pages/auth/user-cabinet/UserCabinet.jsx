@@ -15,7 +15,7 @@ import i18next from "i18next";
 import logo from "../../../assets/images/copy.png";
 
 import { useAppContext } from "../../../context/app.context";
-import { ApiClietServices, imgBaseURL } from "../../../helpers";
+import { ApiClietServices, imgBaseURL, time } from "../../../helpers";
 import { useLocalStorage } from "../../../hooks";
 const { patch, get } = new ApiClietServices();
 
@@ -150,12 +150,17 @@ export const UserCabinet = () => {
       <Modal dismissible show={pdfFile} onClick={() => setPdfFile(false)}>
         <Modal.Body>
           {/* begin::FOR PDF */}
-          <div className="flex flex-col gap-10 w-[550px]" ref={pdf}>
+          <div className="flex flex-col gap-5 w-[550px]" ref={pdf}>
             {/* PERSONAL INFO */}
+            <div className="flex justify-center items-center">
+              <p className="text-center text-xl font-bold">
+                Abituryent ruxsatnomasi
+              </p>
+            </div>
             <div className="flex gap-10">
               <div className="w-52 h-52">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-top"
                   src={imgBaseURL + userData.data?.photo ?? ""}
                   // src={
                   //   "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
@@ -212,7 +217,7 @@ export const UserCabinet = () => {
             </div>
 
             {/* EDUCATION INFO */}
-            <div className="flex flex-col justify-between gap-10">
+            <div className="flex flex-col justify-between gap-3">
               <div className="flex flex-col gap-2">
                 <p className="flex gap-5">
                   {" "}
@@ -247,43 +252,48 @@ export const UserCabinet = () => {
               </div>
 
               <span className="text-gray-400">Tolo'v cheki:</span>
-              <div className="w-full h-36">
+              <div className="w-full h-52 border">
                 <img
                   className="w-full h-full object-cover"
-                  src={imgBaseURL + userData.data?.photo ?? ""}
+                  src={imgBaseURL + userData.data?.paid_file ?? ""}
                   // src={
                   //   "https://res.cloudinary.com/practicaldev/image/fetch/s--X3HaIj2Q--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/66386/e0232f6f-c5c0-47ae-98b9-3ba363275a4f.jpeg"
                   // }
-                  alt="3x4 img"
+                  alt="To'lov cheki"
                 />
               </div>
             </div>
+
+            <div className="pt-1 border-t border-black flex justify-between">
+              <p>{time(new Date())}</p>
+              <p>qabul.tkti.uz</p>
+            </div>
+          </div>
+          <div className="flex gap-5 mt-10">
+            <Button
+              type="button"
+              className="bg-green-600 hover:bg-green-800"
+              onClick={() => handleGeneratePdf()}
+            >
+              Yuklash
+            </Button>
+            <Button
+              type="submit"
+              className="bg-orange-600 hover:bg-orange-800"
+              onClick={() => setPdfFile(false)}
+            >
+              Bekor qilish
+            </Button>
           </div>
           {/* end::FOR PDF */}
-          <Modal.Footer>
-            <div className="flex gap-5">
-              <Button
-                type="button"
-                className="bg-green-600 hover:bg-green-800"
-                onClick={() => handleGeneratePdf()}
-              >
-                Yuklash
-              </Button>
-              <Button
-                type="submit"
-                className="bg-orange-600 hover:bg-orange-800"
-                onClick={() => setPdfFile(false)}
-              >
-                Bekor qilish
-              </Button>
-            </div>
-          </Modal.Footer>
         </Modal.Body>
       </Modal>
 
       <div className="container mx-auto w-[90%] py-10">
         <div className="flex justify-between items-center mb-10">
-          <h1 className="text-3xl font-bold ">Shaxsiy ma’lumotlar</h1>
+          <h1 className="md:text-3xl text-xl font-bold ">
+            Shaxsiy ma’lumotlar
+          </h1>
           {userData.data.paid_file ? (
             <Button
               type="submit"
@@ -341,14 +351,18 @@ export const UserCabinet = () => {
             >
               Nusxalandi
             </p>
-            <Alert color="failure" className="w-72">
+            <Alert color="failure" className="md:w-72 w-full">
               <span>
                 <p>
                   <p className="font-medium mb-1 text-lg">Ogohlantirish</p>
                   <br />
                   Yuqoridagi hisob raqamga to'lov qilgandan so'ng <br />
-                  to'lov chekini <b>Faollashtirish</b> tugmasini bosish
-                  orqali platformaga yuklang
+                  to'lov chekini <b className="uppercase">
+                    Faollashtirish
+                  </b>{" "}
+                  tugmasini bosish orqali platformaga yuklang. To'lov chekidan
+                  boshqa media fayllar yuklangan hollarda arizangiz{" "}
+                  <b>faollashtirilmaydi</b>
                 </p>
               </span>
             </Alert>
@@ -465,7 +479,7 @@ export const UserCabinet = () => {
                   <h1 className="text-gray-400 mb-2">To'lov kvitansiyasi</h1>
                   <img
                     className="object-cover"
-                    src={imgBaseURL + userData.data?.photo ?? ""}
+                    src={imgBaseURL + userData.data?.paid_file ?? ""}
                     alt="Paid check img"
                   />
                 </div>

@@ -5,5 +5,5 @@ export const time = (arg) => {
     const soat = String(date.getHours()).padStart(2, 0);
     const minut = String(date.getMinutes()).padStart(2,0);
     const yil = date.getFullYear();
-    return `${kun}.${oy}.${yil}/${soat}:${minut}`;
+    return `${kun}.${oy}.${yil} ${soat}:${minut}`;
   };
