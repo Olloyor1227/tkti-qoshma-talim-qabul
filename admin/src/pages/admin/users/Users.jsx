@@ -66,12 +66,13 @@ const Users = () => {
     "Ism",
     "Passport seriya",
     "Telefon",
+    "Chek",
     "Status",
     "Amallar",
   ];
 
   const payForApplication = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const data = { ...onEdit?.obj };
     delete data.__v;
@@ -113,6 +114,13 @@ const Users = () => {
         </td>
         <td>{item.passport_number}</td>
         <td>{item.tel}</td>
+        <td>
+          <img
+            src={imgBaseURL + item.paid_file}
+            alt={item.name}
+            className="w-20 h-20 object-cover rounded-full"
+          />
+        </td>
         <td>
           <span
             className={`${
@@ -203,12 +211,19 @@ const Users = () => {
           classNames={"z-[999] flex items-center justify-center"}
           modalClose={() => setInvalidPaymentModal(false)}
         >
-          <form className="bg-white p-5 shadow-2xl" onSubmit={payForApplication}>
+          <form
+            className="bg-white p-5 shadow-2xl"
+            onSubmit={payForApplication}
+          >
             <div className="mb-5 flex flex-col gap-2">
               <label htmlFor="replace_invalid_paid_file">
                 To'g'ri bo'lgan to'lov faylini tanlang
               </label>
-              <input type="file" id="replace_invalid_paid_file" name="replace_invalid_paid_file"/>
+              <input
+                type="file"
+                id="replace_invalid_paid_file"
+                name="replace_invalid_paid_file"
+              />
             </div>
             <button className="p-2 bg-green-400 text-white">Yuklash</button>
           </form>
