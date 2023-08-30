@@ -359,24 +359,20 @@ const Users = () => {
                       <b>{onEdit.obj?.faculty}</b>{" "}
                     </p>
                   </div>
-                  {onEdit.obj?.paid_file ? (
-                    <div className="w-full h-auto relative">
-                      <h1 className="text-gray-400 mb-2">
-                        To'lov kvitansiyasi
-                      </h1>
-                      <img
-                        className="object-cover"
-                        src={imgBaseURL + onEdit.obj?.paid_file ?? ""}
-                        alt="Paid check img"
-                      />
-                      <button
-                        className="flex items-center justify-center absolute top-0 right-0"
-                        onClick={() => setInvalidPaymentModal(true)}
-                      >
-                        <img src={reloadIcon} alt="reload" />
-                      </button>
-                    </div>
-                  ) : null}
+                  <div className="w-full h-auto relative">
+                    <h1 className="text-gray-400 mb-2">To'lov kvitansiyasi</h1>
+                    <img
+                      className="object-cover"
+                      src={imgBaseURL + onEdit.obj?.paid_file ?? ""}
+                      alt="Paid check img"
+                    />
+                    <button
+                      className="flex items-center justify-center absolute top-0 right-0"
+                      onClick={() => setInvalidPaymentModal(true)}
+                    >
+                      <img src={reloadIcon} alt="reload" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

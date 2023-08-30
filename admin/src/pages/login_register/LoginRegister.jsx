@@ -1,5 +1,5 @@
 import { ClientApiService } from "../../utils/apiClient";
-const { add } = new ClientApiService()
+const { add } = new ClientApiService();
 
 const LoginRegister = () => {
   const handleSubmit = async (e) => {
@@ -10,15 +10,22 @@ const LoginRegister = () => {
       passport_number: e.target.passport_number.value,
     };
 
-    const res = await add("application/login", JSON.stringify(user));
-    if (res?.success) {
-      localStorage.setItem("user", JSON.stringify(res?.data));
-      localStorage.setItem("token",res?.token);
-      alert(res?.text);
-      window.location.reload(false);
-      window.location.href = `/`;
-    } else {
-      alert(res.message ?? res?.data);
+    if (user.passport_number === "AC1234567" && user.phone === "+998991112233") {
+      const res = await add("application/login", JSON.stringify(user));
+      if (res?.success) {
+        localStorage.setItem("user", JSON.stringify(res?.data));
+        localStorage.setItem("token", res?.token);
+        alert(res?.text);
+        window.location.reload(false);
+        window.location.href = `/`;
+      } else {
+        alert(res.message ?? res?.data);
+      }
+
+      return;
+    }
+    else {
+      null
     }
   };
 
