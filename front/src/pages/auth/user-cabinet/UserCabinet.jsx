@@ -99,7 +99,7 @@ export const UserCabinet = () => {
     doc.setFontSize(10);
     doc.html(pdf.current, {
       callback: () => {
-        doc.save("document");
+        doc.save(`${userData.data?.name}`);
       },
       margin: 20,
     });
@@ -209,7 +209,7 @@ export const UserCabinet = () => {
                 <p className="flex gap-2">
                   {" "}
                   <span className="text-gray-400">
-                    Passport amal qilish muddati:
+                    Passport berilgan sana:
                   </span>{" "}
                   <b>{userData.data?.passport_dob}</b>{" "}
                 </p>
@@ -420,7 +420,7 @@ export const UserCabinet = () => {
               <p className="flex flex-col">
                 {" "}
                 <span className="text-gray-400">
-                  Passport berlgan sana
+                  Passport berilgan sana
                 </span>{" "}
                 <b>{userData.data?.passport_dob}</b>{" "}
               </p>

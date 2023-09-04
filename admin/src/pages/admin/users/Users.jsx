@@ -305,7 +305,7 @@ const Users = () => {
                   <p className="flex flex-col">
                     {" "}
                     <span className="text-gray-400">
-                      Passport amal qilish muddati
+                      Passport berilgan sana
                     </span>{" "}
                     <b>{onEdit.obj?.passport_dob}</b>{" "}
                   </p>
