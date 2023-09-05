@@ -13,6 +13,7 @@ import copy from "copy-to-clipboard";
 import i18next from "i18next";
 
 import logo from "../../../assets/images/copy.png";
+import kvitansiya from "../../../assets/images/kvitansiya.png";
 
 import { useAppContext } from "../../../context/app.context";
 import { ApiClietServices, imgBaseURL, time } from "../../../helpers";
@@ -312,6 +313,7 @@ export const UserCabinet = () => {
             </Button>
           )}
         </div>
+
         <div className="flex gap-20 items-start max-md:flex-col">
           {/* Img and status section */}
           <div className="">
@@ -330,7 +332,7 @@ export const UserCabinet = () => {
               </span>
             </div>
             <p className="mt-7 text-gray-400 mb-2">
-              To'lov qilish uchun hisob raqam
+              Online to'lov qilish uchun hisob raqam
             </p>
             <div className="relative border-2 rounded-lg p-3">
               <b className="">4001 1086 0262 7770 9410 0079 002</b>
@@ -351,7 +353,25 @@ export const UserCabinet = () => {
             >
               Nusxalandi
             </p>
-            <Alert color="failure" className="md:w-72 w-full">
+
+            <p className="mt-7 text-gray-400 mb-2">
+              Bankdan to'lov qilish uchun kvitansiya
+            </p>
+            <div className="w-96 h-56 border shadow-sm relative">
+              <img
+                className="w-full h-full object-cover"
+                src={kvitansiya}
+                alt="3x4 img"
+              />
+              <a
+                href={kvitansiya}
+                download
+                className={`absolute -bottom-1 left-0 rounded-lg px-4 py-1 text-white text-[13px] bg-blue-900 `}
+              >
+                Yuklab olish
+              </a>
+            </div>
+            {/* <Alert color="failure" className="md:w-72 w-full">
               <span>
                 <p>
                   <p className="font-medium mb-1 text-lg">Ogohlantirish</p>
@@ -365,7 +385,7 @@ export const UserCabinet = () => {
                   <b>faollashtirilmaydi</b>
                 </p>
               </span>
-            </Alert>
+            </Alert> */}
           </div>
 
           {/* User details info section */}
